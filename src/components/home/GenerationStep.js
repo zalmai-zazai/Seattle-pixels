@@ -37,7 +37,7 @@ function GenerationStep() {
             solutions tailored for small businesses across the U.S. Every
             website we build is 100% hand-coded, ensuring top-notch performance
             and search engine optimization to help your business grow. We handle
-            all the updates and maintenance, so you're never left on your own.
+            all the updates and maintenance, so you are never left on your own.
             Our mission is to build lasting partnerships with our clients,
             supporting their growth and success over time.
           </p>
