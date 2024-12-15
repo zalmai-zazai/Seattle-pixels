@@ -41,14 +41,14 @@ function Navbar() {
             </label>
           </div>
 
-          <div className="md:flex-1 flex-none px-2 mx-2">
+          <div className="md:flex-1 flex-none  ">
             <Link href="/">
               <span className="font-bold text-xl">
                 <img
-                  className="mask inline-block mr-2 mask-circle w-12"
-                  src="/android-chrome-192x192.png"
+                  className="mask inline-block w-52  sm:w-72"
+                  src="/logo.png"
                 />{" "}
-                Seattle Pixels Web Design
+                {/* Seattle Pixels Web Design */}
               </span>
             </Link>
           </div>
