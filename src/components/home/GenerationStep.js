@@ -10,6 +10,7 @@ const generationStepData = [
     description:
       "Mobile-first design ensures that your website delivers a seamless experience on smartphones and tablets, where most users access the web today. By prioritizing mobile usability from the start, we create responsive, easy-to-navigate layouts that enhance the user experience, no matter the device.",
   },
+
   {
     img: "responsive.png",
     title: "Responsive Design",
