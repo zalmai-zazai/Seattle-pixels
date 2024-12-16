@@ -3,14 +3,11 @@ import Link from "next/link";
 function Footer() {
   return (
     <div>
-      <div className="bg-slate-50 flex justify-center">
+      <div className="bg-slate-50 flex flex-col md:flex-row justify-center">
+        <div>
+          <img className="w-4/5" src="SecondLogo.png" />
+        </div>
         <footer className="footer pt-10 pb-24 px-4 max-w-6xl  text-base-content">
-          <div>
-            <p className="font-bold text-2xl">
-              Seattle Pixels Web Design
-              <br />
-            </p>
-          </div>
           <div>
             <span className="footer-title">Information</span>
             <Link href="/about-us" className="link link-hover">
@@ -83,7 +80,7 @@ function Footer() {
               Phone (206) 670 688
             </Link>
             <Link href="/terms-and-conditions" className="link link-hover">
-              ZazaiZalmai@gmail.com
+              ZazaiZalmai70@gmail.com
             </Link>
             <Link href="/terms-and-conditions" className="link link-hover">
               United States
@@ -91,7 +88,7 @@ function Footer() {
           </div>
         </footer>
       </div>
-      <div className="p-4 flex justify-center bg-primary">
+      <div className="p-4 flex justify-center  bg-gradient-to-t from-blue-500 to-gray-400">
         <div className="max-w-5xl text-slate-50">
           <p>Copyright © Seattle Pixels 2025 - All right reserved</p>
         </div>

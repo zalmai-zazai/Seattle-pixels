@@ -1,21 +1,66 @@
+import FeatureImageContainer from "@/components/common/FeatureImageContainer";
 import InnerPageContainer from "@/components/common/InnerPageContainer";
+import OurProcess from "@/components/home/OurProcess";
 import PageMetaTags from "@/containers/PageMetaTags";
+import Link from "next/link";
 
-export default function Page() {
-    return (
-      <InnerPageContainer title="About Us">
-            <PageMetaTags title="About Us" description={"Meta tags"} url="/about-us"/>
-            <p className="mt-8">
-            Welcome to Company Name, where innovation meets design! We are a cutting-edge company that is passionate about transforming design into a seamless, imaginative, and enjoyable experience for everyone. Our mission is to empower you with AI-driven ideas.
-            </p>
+export default function Page({ leftText, imageUrl, title }) {
+  return (
+    <>
+      <h1 className="sm:text-5xl text-center mt-12 text-3xl  font-bold  ">
+        ABOUT US
+      </h1>
+      <div className={`grid place-items-center w-full ${leftText ? "" : ""}`}>
+        <div className="max-w-6xl px-4 py-1 content-center justify-center">
+          <div className="grid align-baseline md:grid-cols-2 grid-cols-1 gap-8">
+            <div className="mt-6 relative left-10 container ">
+              <img
+                src="zazaipng.png"
+                className="   h-4/5 opacity-90  object-contain  rounded-b-full"
+              />
+              <div className="bg-gray-900  text-white p-2 bottom-36 right-60  flex flex-col rounded-lg p-3 absolute shadow-2xl">
+                <h1 className="font-bold text-xl">Zalmai Zazai</h1>
+                <p>Owner, Developer</p>
+              </div>
+            </div>
 
-            <h3 className="mt-8 font-bold text-xl">Our Story</h3>
-            <p className="mt-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet facilisis odio, nec cursus metus condimentum vel. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula auctor turpis vitae elementum. Donec vitae lobortis orci. Praesent efficitur enim vel lorem tempus, sed placerat eros accumsan. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer tempus erat sit amet interdum finibus. Fusce dolor tellus, pharetra eu eros ut, rutrum accumsan nunc. Nam imperdiet, odio vel suscipit volutpat, mi mauris varius ipsum, euismod suscipit sapien orci vitae magna.
-            </p>
-            <h3 className="mt-8 font-bold text-xl">What Sets Us Apart</h3>
-<p className="mt-2">Sed sagittis convallis nibh. Morbi ullamcorper neque nec turpis ultricies congue. Sed eget erat non magna semper maximus nec vel eros. Aliquam erat volutpat. Nullam a nibh ut massa rutrum aliquam quis sed nibh. Morbi pretium elit mauris, dictum lacinia velit volutpat a. Curabitur congue nulla nibh, sed posuere lorem accumsan eu. Ut placerat orci lectus, eu bibendum dui egestas at. Duis magna arcu, pellentesque nec ante vel, tincidunt cursus justo. Aliquam erat volutpat. Sed eros erat, luctus quis quam vel, facilisis tempor enim. Donec vel augue ex.</p>
-      </InnerPageContainer>
-    )
-  }
-  
+            <div className="text-center gap-10 flex flex-col sm:mt-0 sm:pt-0 xl:pt-24">
+              <div className="text-center sm:text-left">
+                <h1 className="sm:text-4xl text-2xl font-bold md:leading-none leading-tight md:mt-0 mt-10">
+                  We Make Websites{" "}
+                  <span className="md:block mt-4"> with Purpose & Vision</span>
+                </h1>
+                <p className="py-2  sm:text-x mt-4 pr-2">
+                  My name is Zalmai Zazai, and I am the owner and lead developer
+                  at Seattle Pixels. I hold a bachelors degree in computer
+                  science, specializing in software engineering. My journey in
+                  tech started with desktop-based applications, but after moving
+                  to the U.S. in 2021, I realized the immense demand for web
+                  applications. I quickly adapted and mastered modern web
+                  development technologies like React and Next.js. I found that
+                  many small businesses face the same struggle: either they can
+                  not afford a quality website, or if they do, they end up with
+                  an outdated, poorly designed site. To solve this, I created a
+                  business model that caters to their needs—a $0 down payment
+                  with a manageable $150 per month. This way, small businesses
+                  can get a professional, modern website without breaking the
+                  bank. At Seattle Pixels, I am committed to designing and
+                  developing websites that not only look great but also function
+                  with intent and purpose, using cutting-edge tools and
+                  technologies to help businesses grow online.
+                </p>
+                <Link href="/contact-us">
+                  <button className="btn text-lg mt-16 px-12 bg-blue-500  text-white normal-case">
+                    Conact Us Now!
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <OurProcess />
+      </div>
+    </>
+  );
+}

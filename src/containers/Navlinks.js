@@ -4,6 +4,10 @@ function Navlinks() {
   return (
     <>
       {/* <li className="mr-2"><Link href="/features">Features</Link></li> */}
+
+      <li className="mr-2">
+        <Link href="/about-us">About Us</Link>
+      </li>
       <li className="mr-2">
         <Link href="/pricing">Pricing</Link>
       </li>
@@ -13,9 +17,9 @@ function Navlinks() {
       <li className="mr-2">
         <Link href="/contact-us">Contact Us</Link>
       </li>
-      <li className="mr-2">
+      {/* <li className="mr-2">
         <Link href="/start-designing">Start Designing</Link>
-      </li>
+      </li> */}
     </>
   );
 }

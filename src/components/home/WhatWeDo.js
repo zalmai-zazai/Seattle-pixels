@@ -25,7 +25,7 @@ const generationStepData = [
   },
 ];
 
-function GenerationStep() {
+function WhatWeDo() {
   return (
     <>
       <div className="grid place-items-center bg-slate-50 w-full ">
@@ -47,7 +47,7 @@ function GenerationStep() {
               return (
                 <div
                   key={k}
-                  className="card w-full bg-base-100 shadow-xl hover:shadow-2xl"
+                  className={`card w-full bg-base-100 shadow-xl hover:shadow-blue-300`}
                 >
                   {/* <div className="rounded-full inline-block border-2 flex p-3 relative">
                                     <div className="absolute top-5 left-8">
@@ -74,4 +74,4 @@ function GenerationStep() {
   );
 }
 
-export default GenerationStep;
+export default WhatWeDo;

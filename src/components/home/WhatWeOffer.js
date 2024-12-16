@@ -1,7 +1,7 @@
 import Link from "next/link";
 import FeatureImageContainer from "../common/FeatureImageContainer";
 
-function FeatureSection({ title, leftText, showHeading }) {
+function WhatWeOffer({ title, leftText, showHeading }) {
   return (
     <>
       {showHeading && (
@@ -10,9 +10,19 @@ function FeatureSection({ title, leftText, showHeading }) {
       <div className={`grid place-items-center w-full ${leftText ? "" : ""}`}>
         <div className="max-w-6xl px-4 py-1 content-center justify-center">
           <div className="grid align-baseline md:grid-cols-2 grid-cols-1 gap-8">
-            {leftText && <FeatureImageContainer imageUrl="zazaipng.png" />}
+            {leftText && (
+              <Link
+                href="/"
+                className="mt-12 relative sm:left-0 left-20 content-center "
+              >
+                <img
+                  src="favicon-32x32.png"
+                  className="   h-2/3 shadow-2xl shadow-blue-300 px-10  hover:shadow-orange-300 rounded-full cursor-pointer"
+                />
+              </Link>
+            )}
 
-            <div className="text-center gap-10 flex flex-col sm:mt-0 sm:pt-0 xl:pt-24">
+            <div className="text-center gap-2 flex flex-col sm:mt-0 sm:pt-0 xl:pt-24">
               <h2 className="text-2xl  text-center leading-10 font-bold">
                 {" "}
                 {title}
@@ -42,7 +52,7 @@ function FeatureSection({ title, leftText, showHeading }) {
                 </div>
               </div>
               <Link href="/start-designing">
-                <button className="btn btn-primary mt-8 px-8 normal-case">
+                <button className="btn  bg-blue-500 mt-3 px-8 text-white">
                   Get Started
                 </button>
               </Link>
@@ -56,4 +66,4 @@ function FeatureSection({ title, leftText, showHeading }) {
   );
 }
 
-export default FeatureSection;
+export default WhatWeOffer;
