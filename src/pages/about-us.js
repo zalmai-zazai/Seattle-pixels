@@ -7,16 +7,16 @@ import Link from "next/link";
 export default function Page({ leftText, imageUrl, title }) {
   return (
     <>
-      <h1 className="sm:text-5xl text-center mt-12 text-3xl  font-bold  ">
+      <h1 className="sm:text-5xl ml-16  mt-12 text-3xl  font-bold  ">
         ABOUT US
       </h1>
       <div className={`grid place-items-center w-full ${leftText ? "" : ""}`}>
         <div className="max-w-6xl px-4 py-1 content-center justify-center">
           <div className="grid align-baseline md:grid-cols-2 grid-cols-1 gap-8">
-            <div className="mt-6 relative left-10 container ">
+            <div className="mt-6 relative left-10 content-center justify-center container ">
               <img
                 src="zazaipng.png"
-                className="  w-96 lg:h-5/5 opacity-90  object-contain  rounded-b-full"
+                className="  w-96 lg:h-5/5 opacity-90   object-contain  rounded-b-full"
               />
               <div className="bg-gray-900  text-white lg:bottom-9 lg:right-72  right-52 bottom-0  flex flex-col rounded-lg p-3 absolute shadow-2xl">
                 <h1 className="font-bold text-xl">Zalmai Zazai</h1>
