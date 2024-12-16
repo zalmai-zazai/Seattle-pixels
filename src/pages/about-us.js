@@ -16,9 +16,9 @@ export default function Page({ leftText, imageUrl, title }) {
             <div className="mt-6 relative left-10 container ">
               <img
                 src="zazaipng.png"
-                className="  w-96 lg:h-4/5 opacity-90  object-contain  rounded-b-full"
+                className="  w-96 lg:h-5/5 opacity-90  object-contain  rounded-b-full"
               />
-              <div className="bg-gray-900  text-white  bottom-1 right-60  flex flex-col rounded-lg p-3 absolute shadow-2xl">
+              <div className="bg-gray-900  text-white lg:bottom-9 lg:right-72  right-52 bottom-0  flex flex-col rounded-lg p-3 absolute shadow-2xl">
                 <h1 className="font-bold text-xl">Zalmai Zazai</h1>
                 <p>Owner, Developer</p>
               </div>
@@ -50,7 +50,7 @@ export default function Page({ leftText, imageUrl, title }) {
                   technologies to help businesses grow online.
                 </p>
                 <Link href="/contact-us">
-                  <button className="btn text-lg mt-16 px-12 bg-blue-500  text-white normal-case">
+                  <button className="btn text-lg mt-8 px-8 mb-8 bg-blue-500  text-white normal-case">
                     Conact Us Now!
                   </button>
                 </Link>

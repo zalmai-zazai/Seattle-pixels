@@ -13,7 +13,7 @@ function WhatWeOffer({ title, leftText, showHeading }) {
             {leftText && (
               <Link
                 href="/"
-                className="mt-12 relative sm:left-0 left-14 content-center "
+                className="mt-12 relative sm:left-0 left-8 content-center "
               >
                 <img
                   src="favicon-32x32.png"
