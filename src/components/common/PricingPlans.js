@@ -94,7 +94,8 @@ function PricingPlans() {
                 );
               })}
             </ul>
-            <Link href="/start-designing" className="w-full">
+            {/* <Link href="/start-designing" className="w-full"> */}
+            <Link href="/contact-us" className="w-full">
               <button className="btn bg-green-200 btn-sm mt-8 w-full border-none hover:bg-green-200  btn-outline normal-case ">
                 Get Started
               </button>
@@ -135,12 +136,17 @@ function PricingPlans() {
                 );
               })}
             </ul>
-            <button
+            <Link href="/contact-us" className="w-full">
+              <button className="btn btn-sm mt-8 bg-orange-200 hover:bg-orange-300 border-none normal-case w-full">
+                Get Started
+              </button>
+            </Link>
+            {/* <button
               className="btn btn-sm mt-8 bg-orange-200 hover:bg-orange-300 border-none normal-case w-full"
               onClick={() => openPaymentPage("SUBSCRIPTION")}
             >
               Get Started
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -175,12 +181,18 @@ function PricingPlans() {
                 );
               })}
             </ul>
-            <button
+            <Link href="/contact-us" className="w-full">
+              {" "}
+              <button className="btn btn-sm bg-blue-100 hover:bg-blue-200 border-none mt-8 btn-outline normal-case w-full">
+                Get Started
+              </button>{" "}
+            </Link>
+            {/* <button
               className="btn btn-sm bg-blue-100 hover:bg-blue-200 border-none mt-8 btn-outline normal-case w-full"
               onClick={() => openPaymentPage("SUBSCRIPTION")}
             >
               Get Started
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
