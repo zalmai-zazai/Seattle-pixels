@@ -13,7 +13,7 @@ export default function Page() {
       />
       <>
         <h1 className="sm:text-4xl ml-16  mt-12 text-3xl  font-bold  ">
-          CONTACT US From Contact
+          CONTACT US
         </h1>
         <div className="flex flex-col content-center justify-center gap-6 mt-10 lg:flex-row">
           <div className="leftDiv p-5 mb-4 flex flex-col w-full flex-1">
