@@ -1,6 +1,9 @@
+import AppointmentForm from "@/components/account/AppointmentForm";
+import AppointmentList from "@/components/account/AppointmentList";
 import InnerPageContainer from "@/components/common/InnerPageContainer";
 import OurProcess from "@/components/home/OurProcess";
 import PageMetaTags from "@/containers/PageMetaTags";
+import { addAppointment, sayHello } from "@/lib/action";
 import Link from "next/link";
 
 export default function Page() {
@@ -58,48 +61,7 @@ export default function Page() {
             <h2 className="text-3xl font-bold mb-10 text-gray-700">
               Book Appointment
             </h2>
-            <form className="flex flex-col">
-              <div className="flex flex-col m-1 ">
-                <label className="font-bold text-gray-500">Name</label>
-                <input
-                  type="text"
-                  className="p-2 outline-none "
-                  placeholder="Name"
-                />
-              </div>
-              <div className="flex flex-col m-1 ">
-                <label className="font-bold text-gray-500">Email</label>
-                <input
-                  type="email"
-                  className="p-2 outline-none "
-                  placeholder="Email"
-                />
-              </div>
-              <div className="flex flex-col m-1 ">
-                <label className="font-bold text-gray-500">Phone</label>
-                <input
-                  type="text"
-                  className="p-2 outline-none "
-                  placeholder="Phone"
-                />
-              </div>
-              <div className="flex flex-col m-1 ">
-                <label className="font-bold text-gray-500">Message</label>
-                <textarea
-                  type="text"
-                  className="p-2 outline-none "
-                  placeholder="Write message..."
-                />
-              </div>
-              <div className="flex flex-col m-1 mt-3 ">
-                <button
-                  type="submit"
-                  className="btn bg-blue-500 text-white font-bold w-32"
-                >
-                  Send
-                </button>
-              </div>
-            </form>
+            <AppointmentForm />
           </div>
         </div>
       </>

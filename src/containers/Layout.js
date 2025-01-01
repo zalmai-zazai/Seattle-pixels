@@ -40,7 +40,7 @@ export default function Layout({ children }) {
         <meta name="image" content="/logo.png" />
         <link rel="icon" href="/favicon-32x32.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* <link rel="manifest" href="/site.webmanifest" /> */}
         <meta name="theme-color" content="#3b82f6" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/logo.png" />

@@ -41,6 +41,7 @@ function Projects() {
               >
                 <div className="hero-content md:px-0  px-4 max-w-6xl flex-col lg:flex-row-reverse">
                   <img
+                    alt="this is img"
                     src={i.img ? i.img : "hero3.png"}
                     className="max-w-full  h-60 sm:h-80 object-cover lg:rounded-l-full rounded-3xl shadow-2xl"
                   />

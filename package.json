@@ -9,7 +9,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-
   "keywords": [
     "reactjs",
     "Seattle pixels",
@@ -18,21 +17,23 @@
   ],
   "author": "Zalmai Zazai",
   "license": "ISC",
-
   "dependencies": {
     "@heroicons/react": "^2.0.15",
-    "@next/font": "13.1.6",
+    "@next/font": "^13.5.8",
     "@reduxjs/toolkit": "^1.9.7",
     "@tailwindcss/typography": "^0.5.9",
     "axios": "^1.6.2",
     "crisp-sdk-web": "^1.0.21",
+    "date-fns": "^4.1.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "mixpanel-browser": "^2.48.1",
-    "next": "^14.0.3",
+    "mongoose": "^8.9.3",
+    "next": "^15.1.3",
     "nextjs-google-analytics": "^2.3.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.3.1",
+    "react-datepicker": "^7.5.0",
+    "react-dom": "^18.3.1",
     "react-gtm-module": "^2.0.11",
     "react-hotjar": "^6.1.0",
     "react-redux": "^8.1.3",

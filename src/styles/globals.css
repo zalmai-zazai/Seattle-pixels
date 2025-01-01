@@ -1,26 +1,24 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "react-datepicker/dist/react-datepicker.css";
 
-
-.compareImg{
-    height: 300px;
+.compareImg {
+  height: 300px;
 }
 
-body{
-    color : "#252524" !important;
+body {
+  color: "#252524" !important;
 }
 
 .btn-primary {
-    color : white !important;
+  color: white !important;
 }
 
 .btn-outline:hover {
-    background:  "#16564d"
+  background: "#16564d";
 }
-.menu li > *:not(ul):not(.menu-title):not(details).active{
-    color : white !important;
-    background: #e8b333
+.menu li > *:not(ul):not(.menu-title):not(details).active {
+  color: white !important;
+  background: #e8b333;
 }
-
-
