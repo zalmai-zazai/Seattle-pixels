@@ -30,13 +30,13 @@ const featuresData = [
     link: "https://myfoodresturant.netlify.app/",
   },
 
-  {
-    title: "My Ecomerce",
-    description:
-      "We developed a custom eCommerce website designed for seamless shopping experiences. With integrated payment gateways, easy navigation, and mobile-friendly design, the site allows customers to browse and purchase products effortlessly. Built for performance and scalability, it offers a reliable platform for growing online sales.",
-    img: "ecomerce.png",
-    link: "https://zazaiecomerce.onrender.com/",
-  },
+  // {
+  //   title: "My Ecomerce",
+  //   description:
+  //     "We developed a custom eCommerce website designed for seamless shopping experiences. With integrated payment gateways, easy navigation, and mobile-friendly design, the site allows customers to browse and purchase products effortlessly. Built for performance and scalability, it offers a reliable platform for growing online sales.",
+  //   img: "ecomerce.png",
+  //   link: "https://zazaiecomerce.onrender.com/",
+  // },
 ];
 
 function Projects() {
