@@ -15,6 +15,12 @@ function Navlinks() {
         <Link href="/blogs">Blogs</Link>
       </li>
       <li className="mr-2">
+        <Link href="/privacy-policy">Privacy and policy</Link>
+      </li>
+      <li className="mr-2">
+        <Link href="/faqs">FAQS</Link>
+      </li>
+      <li className="mr-2">
         <Link href="/contact-us">Contact Us</Link>
       </li>
       {/* <li className="mr-2">

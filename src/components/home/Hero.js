@@ -17,7 +17,7 @@ function Hero() {
             websites designed to drive results. Starting at $150/mo, our
             services expert SEO are there to help your business grow online.
           </p>
-          <Link href="/start-designing">
+          <Link href="/contact-us">
             <button className="btn text-lg mt-16 px-12 btn-white text-blue-500 normal-case">
               Get Started
             </button>

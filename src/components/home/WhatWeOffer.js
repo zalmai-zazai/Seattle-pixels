@@ -51,7 +51,7 @@ function WhatWeOffer({ title, leftText, showHeading }) {
                   </p>
                 </div>
               </div>
-              <Link href="/start-designing">
+              <Link href="/contact-us">
                 <button className="btn  bg-blue-500 mt-3 px-8 text-white">
                   Get Started
                 </button>
