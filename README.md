@@ -29,7 +29,6 @@ Go to project directory and run (make sure you have node installed first)
 
 - [Next JS v13.1.6](https://reactjs.org/)
 - [Tailwind CSS v3.2.4](https://tailwindcss.com/)
-- [Daisy UI v2.41.0](https://daisyui.com/)
 - [HeroIcons](https://heroicons.com/)
 
 ## Preview
@@ -46,11 +45,3 @@ Go to project directory and run (make sure you have node installed first)
 ## Contributing
 
 Contributions are always welcome!
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Feedback
-
-If you have any feedback, please reach out to us
