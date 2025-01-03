@@ -97,9 +97,9 @@ function Navbar() {
                 </ul>
             </div> */}
         </div>
-        <div className="navbar-end hidden lg:flex">
+        {/* <div className="navbar-end hidden lg:flex">
           <NavProfileLinks />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ function NavProfileLinks() {
       )}
       {!isLoggedIn && (
         <>
-          <button
+          {/* <button
             className="btn btn-sm text-xs mr-4 normal-case md:btn-ghost "
             onClick={() => openLoginModal()}
           >
@@ -125,7 +125,7 @@ function NavProfileLinks() {
             <button className="btn md:mt-0 mt-4 btn-block btn-sm text-xs btn-outline normal-case hover:text-white hover:btn-primary">
               Get Started
             </button>
-          </Link>
+          </Link> */}
         </>
       )}
     </>

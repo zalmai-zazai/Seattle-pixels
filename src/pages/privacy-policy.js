@@ -166,7 +166,7 @@ export default function Page() {
           <b>Phone: </b>206 670 6888
         </p>
         <p>
-          <b>Email: </b>Kent, WA
+          <b>Location: </b>Kent, WA
         </p>
       </div>
     </InnerPageContainer>
