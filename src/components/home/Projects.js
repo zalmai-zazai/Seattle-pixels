@@ -2,6 +2,13 @@ import Link from "next/link";
 
 const featuresData = [
   {
+    title: "Blog Website",
+    description:
+      "We developed a feature-rich blog website with a robust backend connected to MongoDB, ensuring efficient data storage and retrieval. The website offers user authentication via GitHub and an integrated user management system through Firebase Auth, allowing users to securely sign in, manage profiles, and interact with the platform. The admin section provides full control over content and users, enabling the addition and deletion of blog posts as well as user management features, such as adding or removing users. This system ensures secure and streamlined content creation while maintaining user authentication and authorization efficiently.",
+    img: "blog.png",
+    link: "https://next14-starter-one-kappa.vercel.app/",
+  },
+  {
     title: "Food Delivery App",
     description:
       "We built a Food Delivery App for a restaurant using the MERN stack (MongoDB, Express, React, and Node.js). The app provides a seamless experience for customers to browse the menu, place orders, and track deliveries, enhancing the restaurant's overall service efficiency",
@@ -22,6 +29,7 @@ const featuresData = [
     img: "resturant.png",
     link: "https://myfoodresturant.netlify.app/",
   },
+
   {
     title: "My Ecomerce",
     description:
