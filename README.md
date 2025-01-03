@@ -1,12 +1,14 @@
-![Logo](https://ik.imagekit.io/vu5t8xb15vzcx/tr:h-100/M_akhjB4K1-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677436748377)
+![Logo](https://raw.githubusercontent.com/zalmai-zazai/Seattle-pixels/refs/heads/main/public/favicon-32x32.png)
 
-## Daisy UI Next JS Landing Page Template
+## Seattle Pixels - Creative Web Solutions
 
-[![MIT License](https://raw.githubusercontent.com/zalmai-zazai/Seattle-pixels/refs/heads/main/public/delivery.png)
+![MIT License](https://raw.githubusercontent.com/zalmai-zazai/Seattle-pixels/refs/heads/main/public/favicon-32x32.png)
 
-A free landing page template using **Daisy UI** and Next JS. With the help of Dasisy UI, it comes with **fully customizable and themable CSS** and power of Tailwind CSS utility classes.
+Seattle Pixels is a modern web development agency specializing in creating sleek, responsive, and SEO-friendly websites. Built using the MERN stack with Next.js at the core, we deliver customizable, fully-featured websites tailored to your business needs.
 
 ## Preview
+
+Check out the live demo of our latest project:
 
 [Live preview](https://www.seattlepixels.com/)
 
@@ -14,10 +16,7 @@ A free landing page template using **Daisy UI** and Next JS. With the help of Da
 
 ## Features
 
-- **Next Js** for SEO friendly
-- **Pricing** and Feature Page
-- **Daisy UI** components and **Tailwind** support
-- **Analytics** and other libraries configured
+-**Authentication using GitHub** and user management with NextAuth.js -**Admin Dashboard** for adding, editing, and deleting posts and users -**SEO Optimized** and mobile-first design -**Customizable Themes** with Tailwind CSS and Daisy UI -**Integrated MongoDB** for data persistence
 
 ## Installation
 
@@ -37,13 +36,13 @@ Go to project directory and run (make sure you have node installed first)
 
 ## Preview
 
-[Live preview](https://daisyui-nextjs-landing-page.vercel.app/)
+[Live preview](https://www.seattlepixels.com/)
 
 ## Page Examples
 
 |                                                                                                                                          |                                                                                                                                         |
 | :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
-|  ![Login Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.54.13%20PM_Rmidhi5Lk.png?updatedAt=1700735336477)   | ![Pricing Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.58.11%20PM_bOAmz0lkh.png?updatedAt=1700735336115) |
+|   ![Home Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.54.13%20PM_Rmidhi5Lk.png?updatedAt=1700735336477)   | ![Pricing Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.58.11%20PM_bOAmz0lkh.png?updatedAt=1700735336115) |
 | ![About Us Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.58.28%20PM_Iq6KCzMfh.png?updatedAt=1700735335834) | ![Profile Page](https://ik.imagekit.io/vu5t8xb15vzcx/Screenshot%202023-11-23%20at%203.58.37%20PM_7Ewqbd5N_.png?updatedAt=1700735335793) |
 
 ## Contributing
