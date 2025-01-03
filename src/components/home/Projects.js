@@ -2,6 +2,13 @@ import Link from "next/link";
 
 const featuresData = [
   {
+    title: "Food Delivery App",
+    description:
+      "We built a Food Delivery App for a restaurant using the MERN stack (MongoDB, Express, React, and Node.js). The app provides a seamless experience for customers to browse the menu, place orders, and track deliveries, enhancing the restaurant's overall service efficiency",
+    img: "delivery.png",
+    link: "https://food-del-smoky-beta.vercel.app/",
+  },
+  {
     title: "Sudsy Car Wash",
     description:
       "We designed and developed a sleek, modern website for Sudsy Car Wash, focusing on user-friendly navigation and seamless booking functionality. The design reflects the quality of their services and is fully responsive, ensuring customers can easily access it from any device. The result is a polished, high-performing website that enhances the customer experience for Sudsy Car Wash",
@@ -58,7 +65,7 @@ function Projects() {
                         target="_blank"
                         className="btn text-lg mt-10 px-12 bg-blue-500 text-white normal-case"
                       >
-                        Vist Website
+                        Visit Website
                       </button>
                     </Link>
                   </div>
