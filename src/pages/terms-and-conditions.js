@@ -195,7 +195,7 @@ export default function Page() {
             In the event of a dispute, the parties agree to first attempt to
             resolve the matter through negotiation. If unsuccessful, disputes
             will be resolved through arbitration or the court system in the
-            jurisdiction of [Insert State/City].
+            jurisdiction of Seattle,WA.
           </li>
         </ul>
       </div>
@@ -204,8 +204,8 @@ export default function Page() {
         <ul>
           <li>
             These Terms and Conditions are governed by and construed in
-            accordance with the laws of [Insert State], without regard to its
-            conflict of law provisions..
+            accordance with the laws of WA, without regard to its conflict of
+            law provisions..
           </li>
         </ul>
       </div>
@@ -235,7 +235,7 @@ export default function Page() {
           <b>Phone: </b>206 670 6888
         </p>
         <p>
-          <b>Email: </b>Kent, WA
+          <b>Location: </b>Kent, WA
         </p>
       </div>
     </InnerPageContainer>

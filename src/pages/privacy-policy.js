@@ -16,9 +16,9 @@ export default function Page() {
         <br />
         Seattle Pixels is committed to protecting your privacy. This Privacy
         Policy explains how we collect, use, disclose, and safeguard your
-        information when you visit our website, [Insert Website URL] (Website),
-        or use our services. Please read this policy carefully to understand our
-        views and practices regarding your personal data and how we treat it.
+        information when you visit our website, www.SeattlePixels.com, or use
+        our services. Please read this policy carefully to understand our views
+        and practices regarding your personal data and how we treat it.
         <br />
         <br />
       </p>

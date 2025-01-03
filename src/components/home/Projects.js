@@ -66,7 +66,7 @@ function Projects() {
                       {i.title}
                     </h1>
                     <p className="py-1 px-8 sm:text-lg mt-4">{i.description}</p>
-                    <Link href={i.link}>
+                    <Link target="_blank" href={i.link}>
                       <button
                         rel="noopener"
                         noreferrer
