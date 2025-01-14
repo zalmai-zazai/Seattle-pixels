@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 const testimonialsData = [
   {
     text: "I was looking for a website that reflected the quality and professionalism of my car wash business, and they delivered exactly what I needed. The Seattle Pixels team created a sleek, modern design that not only looks great but also functions seamlessly. It was a smooth and collaborative process, and I am very happy with the results.",
@@ -20,15 +22,46 @@ const testimonialsData = [
 ];
 
 function Testimonials() {
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("pop-up");
+          } else {
+            entry.target.classList.remove("pop-up");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
   return (
     <>
-      <div className="grid place-items-center w-full ">
+      <div className="grid place-items-center w-full">
         <div className="max-w-6xl px-4 py-24 content-center justify-center">
-          <h1 className="text-3xl  text-center font-bold">Testimonials</h1>
+          <h1 className="text-3xl text-center font-bold">Testimonials</h1>
           <div className="grid mt-12 md:grid-cols-3 grid-cols-1 gap-8">
             {testimonialsData.map((t, k) => {
               return (
-                <div key={k} className="card w-full bg-base-100 shadow-xl">
+                <div
+                  key={k}
+                  className="card w-full bg-base-100 shadow-xl opacity-0 transition-transform duration-500" // transition added
+                  ref={(el) => (cardRefs.current[k] = el)}
+                >
                   <figure className="px-10 pt-10">
                     <img
                       className="mask w-20 h-20 mask-circle object-cover"

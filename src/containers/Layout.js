@@ -49,6 +49,10 @@ export default function Layout({ children }) {
         <meta name="og:site_name" content="Space AI" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
         <meta itemProp="image" content="/logo.png" />
       </Head>
       <div className="drawer">
@@ -67,8 +71,14 @@ export default function Layout({ children }) {
         <div className="drawer-side ">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-base-100">
-            <li className="mr-2">
-              <Link href="/">Home</Link>
+            <li className="mr-2 font-bold text-gray-500">
+              <Link href="/">
+                {" "}
+                <span class="material-symbols-outlined  text-blue-300">
+                  home
+                </span>{" "}
+                Home
+              </Link>
             </li>
             <Navlinks />
             <div className="mt-12"></div>

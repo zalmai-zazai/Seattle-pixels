@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 const featuresData = [
@@ -29,61 +30,85 @@ const featuresData = [
     img: "resturant.png",
     link: "https://myfoodresturant.netlify.app/",
   },
-
-  // {
-  //   title: "My Ecomerce",
-  //   description:
-  //     "We developed a custom eCommerce website designed for seamless shopping experiences. With integrated payment gateways, easy navigation, and mobile-friendly design, the site allows customers to browse and purchase products effortlessly. Built for performance and scalability, it offers a reliable platform for growing online sales.",
-  //   img: "ecomerce.png",
-  //   link: "https://zazaiecomerce.onrender.com/",
-  // },
 ];
 
 function Projects() {
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const options = {
+      threshold: 0.2, // When 20% of the card is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "scale-100"); // Show the card with transition
+          entry.target.classList.remove("opacity-0", "scale-90"); // Remove hidden and scale-down classes
+        } else {
+          entry.target.classList.add("opacity-0", "scale-90"); // Hide and scale-down when out of view
+          entry.target.classList.remove("opacity-100", "scale-100"); // Ensure it's hidden
+        }
+      });
+    }, options);
+
+    cardRefs.current.forEach((card) => {
+      if (card) {
+        observer.observe(card);
+      }
+    });
+
+    return () => {
+      cardRefs.current.forEach((card) => {
+        if (card) {
+          observer.unobserve(card);
+        }
+      });
+    };
+  }, []);
+
   return (
-    <>
-      <div className="grid place-items-center w-full bg-base-200">
-        <div className="max-w-6xl py-24 content-center justify-center">
-          <h1 className="text-3xl mb-24  text-center font-bold">
-            Some Of Our Projects
-          </h1>
+    <div className="grid place-items-center w-full bg-base-200">
+      <div className="max-w-6xl py-24 content-center justify-center">
+        <h1 className="text-3xl mb-24 text-center font-bold">
+          Some Of Our Projects
+        </h1>
 
-          {featuresData.map((i, k) => {
-            return (
-              <div
-                key={k}
-                className="card w-full bg-base-100 my-5  shadow-xl hover:shadow-2xl mx-3 "
-              >
-                <div className="hero-content md:px-0  px-4 max-w-6xl flex-col lg:flex-row-reverse">
-                  <img
-                    alt="this is img"
-                    src={i.img ? i.img : "hero3.png"}
-                    className="max-w-full  h-60 sm:h-80 object-cover lg:rounded-l-full rounded-3xl shadow-2xl"
-                  />
+        {featuresData.map((i, k) => {
+          return (
+            <div
+              key={k}
+              className="card w-full bg-base-100 my-5 shadow-xl hover:shadow-2xl mx-3 opacity-0 scale-90 transition-all duration-500"
+              ref={(el) => (cardRefs.current[k] = el)}
+            >
+              <div className="hero-content md:px-0 px-4 max-w-6xl flex-col lg:flex-row-reverse">
+                <img
+                  alt="this is img"
+                  src={i.img ? i.img : "hero3.png"}
+                  className="max-w-full h-60 sm:h-80 object-cover lg:rounded-l-full rounded-3xl shadow-2xl"
+                />
 
-                  <div className="text-center sm:text-center">
-                    <h1 className="sm:text-3xl text-2xl text-blue-600 font-bold md:leading-none leading-tight md:mt-0 mt-10">
-                      {i.title}
-                    </h1>
-                    <p className="py-1 px-8 sm:text-lg mt-4">{i.description}</p>
-                    <Link target="_blank" href={i.link}>
-                      <button
-                        rel="noopener"
-                        noreferrer
-                        target="_blank"
-                        className="btn text-lg mt-10 px-12 bg-blue-500 text-white normal-case"
-                      >
-                        Visit Website
-                      </button>
-                    </Link>
-                  </div>
+                <div className="text-center sm:text-center">
+                  <h1 className="sm:text-3xl text-2xl text-blue-600 font-bold md:leading-none leading-tight md:mt-0 mt-10">
+                    {i.title}
+                  </h1>
+                  <p className="py-1 px-8 sm:text-lg mt-4">{i.description}</p>
+                  <Link target="_blank" href={i.link}>
+                    <button
+                      rel="noopener"
+                      target="_blank"
+                      className="btn text-lg mt-10 px-12 bg-blue-500 text-white normal-case"
+                    >
+                      Visit Website
+                    </button>
+                  </Link>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 }
 

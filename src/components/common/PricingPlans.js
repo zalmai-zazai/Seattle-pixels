@@ -1,9 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import Link from "next/link";
-import { MODAL_BODY_TYPES } from "@/utils/globalConstantUtil";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { openModal } from "@/store/modalSlice";
 
 const freePointers = [
@@ -11,7 +9,7 @@ const freePointers = [
   "$25/mo for Hosting",
   "$100 per page after the first 5 pages",
   "Optional: $50/mo for unlimited content update",
-  "Add a blog for just $250 ",
+  "Add a blog for just $250",
   "24/7 Customer Support",
   "Lifetime Updates",
 ];
@@ -27,20 +25,53 @@ const advancePointers = [
 ];
 
 const professionalPointers = [
-  "Custom Shopify Store ",
+  "Custom Shopify Store",
   "Full app configuration",
   "Shipping integration included",
-  "Shopify walkthrough tutoria",
+  "Shopify walkthrough tutorial",
   "Fully editable via Shopify CMS",
-  "Optional: $50/mo for unlimited edits ",
+  "Optional: $50/mo for unlimited edits",
   "24/7 Customer Support",
 ];
 
 function PricingPlans() {
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   const { isLoggedIn } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const cardRefs = useRef([]); // Create a ref array to hold references to the cards
+
+  useEffect(() => {
+    const options = {
+      threshold: 0.2, // When 20% of the card is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "scale-100"); // Show the card with transition
+          entry.target.classList.remove("opacity-0", "scale-90"); // Remove hidden and scale-down classes
+        } else {
+          entry.target.classList.add("opacity-0", "scale-90"); // Hide and scale-down when out of view
+          entry.target.classList.remove("opacity-100", "scale-100"); // Ensure it's hidden
+        }
+      });
+    }, options);
+
+    cardRefs.current.forEach((card) => {
+      if (card) {
+        observer.observe(card);
+      }
+    });
+
+    return () => {
+      cardRefs.current.forEach((card) => {
+        if (card) {
+          observer.unobserve(card);
+        }
+      });
+    };
+  }, []);
 
   const openPaymentPage = async (paymentType) => {
     if (!isLoggedIn) {
@@ -48,7 +79,7 @@ function PricingPlans() {
         openModal({
           title: "",
           size: "lg",
-          bodyType: MODAL_BODY_TYPES.SIGN_IN_MODAL,
+          bodyType: "SIGN_IN_MODAL",
           extraObject: { isSignIn: true },
         })
       );
@@ -59,140 +90,91 @@ function PricingPlans() {
     setLoading(false);
   };
 
-  const [toggleActive, setToogleActive] = useState(true);
-
   return (
     <>
-      <div
-        className="text-center  cursor-pointer text-xl mt-6"
-        // onClick={() => setToogleActive(!toggleActive)}
-      >
-        {/* <span className="align-top  mr-1">Monthly</span> */}
-        {/* <input
-          type="checkbox"
-          className="toggle  toggle-primary"
-          checked={toggleActive}
-        /> */}
-        {/* <span className="align-top ml-2">Yearly</span> */}
-      </div>
       <div className="grid md:grid-cols-3 grid-cols-1 mt-2 w-full gap-8">
-        <div className="card w-full mt-6  bg-base-100 shadow-2xl  shadow-green-100 hover:shadow-green-200">
-          <div className="card-body pt-12 pb-16  items-center text-center ">
+        <div
+          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-green-200"
+          ref={(el) => (cardRefs.current[0] = el)}
+        >
+          <div className="card-body pt-12 pb-16 items-center text-center">
             <h2 className="card-title text-xl">One-Time Payment</h2>
-            {/* <h2 className="font-bold mt-4 text-2xl">$3800 (One-time)</h2> */}
-            <h2 className="font-bold mt-4  text-gray-600 text-xl">
+            <h2 className="font-bold mt-4 text-gray-600 text-xl">
               $1800 (One-time)
             </h2>
 
             <ul className="text-left mt-4">
-              {freePointers.map((p, k) => {
-                return (
-                  <li key={k} className="mt-2">
-                    <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                    {p}
-                  </li>
-                );
-              })}
+              {freePointers.map((p, k) => (
+                <li key={k} className="mt-2">
+                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
+                  {p}
+                </li>
+              ))}
             </ul>
-            {/* <Link href="/start-designing" className="w-full"> */}
             <Link href="/contact-us" className="w-full">
-              <button className="btn bg-green-200 btn-sm mt-8 w-full border-none hover:bg-green-200  btn-outline normal-case ">
+              <button className="btn bg-green-200 btn-sm mt-8 w-full border-none hover:bg-green-200 btn-outline normal-case">
                 Get Started
               </button>
             </Link>
           </div>
         </div>
 
-        <div className="card w-full mt-6  bg-base-100 shadow-2xl shadow-orange-100  hover:shadow-orange-200">
-          <div className="card-body pt-12 pb-16 items-center  ">
+        <div
+          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-orange-200"
+          ref={(el) => (cardRefs.current[1] = el)}
+        >
+          <div className="card-body pt-12 pb-16 items-center">
             <div className="badge badge-secondary badge-sm absolute text-white mt-1 ml-1 left-2 top-2">
               Most Popular
             </div>
             <h2 className="card-title text-xl text-center">
-              Subscription Plan{" "}
+              Subscription Plan
             </h2>
-            <h2 className="font-bold mt-4 text-4xl text-center inline-block">
-              {/* {toggleActive ? `$5` : `$8`}{" "}
-              {toggleActive && (
-                <span className="text-xl line-through text-secondary align-middle mr-2">
-                  $175/month
-                </span>
-              )} */}
-              <span className="text-xl  text-secondary align-middle mr-2">
-                $150/monthly
-              </span>
-              {/* <span className="text-xs align-middle font-light text-slate-500">
-                /monthly
-              </span> */}
+            <h2 className="font-bold mt-4 text-xl text-secondary align-middle mr-2">
+              $150/monthly
             </h2>
 
             <ul className="text-left mt-4">
-              {advancePointers.map((p, k) => {
-                return (
-                  <li key={k} className="mt-2">
-                    <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                    {p}
-                  </li>
-                );
-              })}
+              {advancePointers.map((p, k) => (
+                <li key={k} className="mt-2">
+                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
+                  {p}
+                </li>
+              ))}
             </ul>
             <Link href="/contact-us" className="w-full">
               <button className="btn btn-sm mt-8 bg-orange-200 hover:bg-orange-300 border-none normal-case w-full">
                 Get Started
               </button>
             </Link>
-            {/* <button
-              className="btn btn-sm mt-8 bg-orange-200 hover:bg-orange-300 border-none normal-case w-full"
-              onClick={() => openPaymentPage("SUBSCRIPTION")}
-            >
-              Get Started
-            </button> */}
           </div>
         </div>
 
-        <div className="card w-full mt-6 shadow-2xl shadow-blue-100  hover:shadow-blue-200  bg-base-100 ">
-          <div className="card-body pt-12 pb-16 items-center  ">
+        <div
+          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-blue-200"
+          ref={(el) => (cardRefs.current[2] = el)}
+        >
+          <div className="card-body pt-12 pb-16 items-center">
             <h2 className="card-title text-xl text-center">
-              E-commerce Package{" "}
+              E-commerce Package
             </h2>
-            <h2 className="font-bold mt-4 text-4xl text-center inline-block">
-              {/* {toggleActive ? `$12` : `$15`}{" "}
-              {toggleActive && (
-                <span className="text-xl line-through text-secondary align-middle mr-2">
-                  Starting at $8,000
-                </span>
-              )} */}
-              <span className="text-xl  text-gray-600 align-middle mr-2">
-                Starting at $4,000
-              </span>
-
-              {/* <span className="text-xs align-middle font-light text-slate-500">
-                /monthly
-              </span> */}
+            <h2 className="font-bold mt-4 text-xl text-gray-600 align-middle mr-2">
+              Starting at $4,000
             </h2>
 
             <ul className="text-left mt-4">
-              {professionalPointers.map((p, k) => {
-                return (
-                  <li key={k} className="mt-2">
-                    <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                    {p}
-                  </li>
-                );
-              })}
+              {professionalPointers.map((p, k) => (
+                <li key={k} className="mt-2">
+                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
+                  {p}
+                </li>
+              ))}
             </ul>
             <Link href="/contact-us" className="w-full">
-              {" "}
               <button className="btn btn-sm bg-blue-100 hover:bg-blue-200 border-none mt-8 btn-outline normal-case w-full">
                 Get Started
-              </button>{" "}
+              </button>
             </Link>
-            {/* <button
-              className="btn btn-sm bg-blue-100 hover:bg-blue-200 border-none mt-8 btn-outline normal-case w-full"
-              onClick={() => openPaymentPage("SUBSCRIPTION")}
-            >
-              Get Started
-            </button> */}
           </div>
         </div>
       </div>
