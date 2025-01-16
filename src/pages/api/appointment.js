@@ -38,6 +38,23 @@ export default async function handler(req, res) {
     } catch (error) {
       return res.status(500).json({ message: "Something went wrong", error });
     }
+
+    //// Delete the appointment
+  } else if (req.method === "DELETE") {
+    const { id } = req.body;
+    if (!id) {
+      res.json({ success: false, message: "ID is required to delete!" });
+    }
+    try {
+      const deletedAppointment = await Appointment.findByIdAndDelete(id);
+      if (!deletedAppointment) {
+        res.json({ success: false, message: "Appointment Not Found!" });
+      }
+      res.json({ success: true, message: "Appointment Done!" });
+    } catch (error) {
+      console.log(error);
+      res.json({ success: false, message: "Somthing went Wrong!" });
+    }
   } else {
     // If not POST request, return 405 Method Not Allowed
     res.setHeader("Allow", ["POST"]);

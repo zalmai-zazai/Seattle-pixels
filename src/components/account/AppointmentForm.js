@@ -24,9 +24,9 @@ const AppointmentForm = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response);
+      // console.log(response);
       if (response.ok) {
-        console.log("Appointment booked!");
+        // console.log("Appointment booked!");
         setMessage("Appointment booked!");
         setFormData({
           name: "",

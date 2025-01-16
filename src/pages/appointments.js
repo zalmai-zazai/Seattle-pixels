@@ -1,6 +1,5 @@
 import AppointmentList from "@/components/account/AppointmentList";
 import InnerPageContainer from "@/components/common/InnerPageContainer";
-import PageMetaTags from "@/containers/PageMetaTags";
 
 export default function Page() {
   return (

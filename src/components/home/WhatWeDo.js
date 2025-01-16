@@ -67,7 +67,7 @@ function WhatWeDo() {
         <h2 className="text-2xl text-gray-700 text-center font-bold">
           WHAT WE DO
         </h2>
-        <p className="py-2 mt-4 text-center mx-auto max-w-md">
+        <p className="py-2 mt-4 text-center mx-auto ">
           At Seattle Pixels Web Design, we focus on creating custom web
           solutions tailored for small businesses across the U.S. Every website
           we build is 100% hand-coded, ensuring top-notch performance and search

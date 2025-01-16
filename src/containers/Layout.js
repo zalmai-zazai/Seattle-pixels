@@ -74,7 +74,7 @@ export default function Layout({ children }) {
             <li className="mr-2 font-bold text-gray-500">
               <Link href="/">
                 {" "}
-                <span class="material-symbols-outlined  text-blue-300">
+                <span className="material-symbols-outlined  text-blue-300">
                   home
                 </span>{" "}
                 Home
