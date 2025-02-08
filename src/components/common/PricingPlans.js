@@ -9,7 +9,7 @@ const freePointers = [
   "$25/mo for Hosting",
   "$100 per page after the first 5 pages",
   "Optional: $50/mo for unlimited content update",
-  "Add a blog for just $250",
+  "Add a blog for just $150",
   "24/7 Customer Support",
   "Lifetime Updates",
 ];
@@ -18,7 +18,7 @@ const advancePointers = [
   "Complete Design & Development",
   "Hosting included",
   "$100 per page after 5 pages",
-  "Add a blog for $250",
+  "Add a blog for $150",
   "Unlimited content edits",
   "24/7 Customer Support",
   "Lifetime Updates",
@@ -100,7 +100,7 @@ function PricingPlans() {
           <div className="card-body pt-12 pb-16 items-center text-center">
             <h2 className="card-title text-xl">One-Time Payment</h2>
             <h2 className="font-bold mt-4 text-gray-600 text-xl">
-              $1800 (One-time)
+              $1500 (One-time)
             </h2>
 
             <ul className="text-left mt-4">
@@ -159,7 +159,7 @@ function PricingPlans() {
               E-commerce Package
             </h2>
             <h2 className="font-bold mt-4 text-xl text-gray-600 align-middle mr-2">
-              Starting at $4,000
+              Starting at $5,000
             </h2>
 
             <ul className="text-left mt-4">

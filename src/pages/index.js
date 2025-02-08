@@ -11,6 +11,7 @@ import Projects from "@/components/home/Projects";
 import WhatWeDo from "@/components/home/WhatWeDo";
 import Testimonials from "@/components/home/Testimonials";
 import WhatWeOffer from "@/components/home/WhatWeOffer";
+import Banner from "@/components/home/Banner";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +23,15 @@ export default function Home() {
         <meta itemProp="url" content="https://www.webdesignai.com/" />
         <meta itemProp="name" content="Seattle Pixels" />
       </div>
-      <Hero />
+      {/* <Hero /> */}
+      <Banner />
       <WhatWeDo />
       {/* <FeatureSection showHeading={true} title="Feature title 1" /> */}
 
       <WhatWeOffer
         showHeading={true}
-        title="Websites Starting at $150 per Month with $0 Down"
-        leftText="We offer a comprehensive website package starting at $150 per month with no upfront cost for a 5-page custom-built website. For larger or more complex websites, custom pricing is available depending on additional requirements. A 12-month minimum contract applies, including design, development, hosting, unlimited updates, 24/7 support, and ongoing maintenance."
+        title="Websites Starting at $150 per Month"
+        leftText="We offer a comprehensive website package starting at $150 per month for a 5-page custom-built website. For larger or more complex websites, custom pricing is available depending on additional requirements. A 10-months minimum contract applies, including design, development, hosting, unlimited updates, 24/7 support, and ongoing maintenance."
       />
 
       {/* <FeatureSection title="Feature title 3"/> */}
