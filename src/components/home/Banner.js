@@ -6,7 +6,7 @@ const Banner = () => {
       <section className="bg-gray-900 text-white">
         <div className="mx-auto max-w-screen-xl px-4 py-32 flex-col lg:flex  lg:h-screen lg:items-center">
           <img
-            src="https://www.pngkey.com/png/full/827-8273867_web-design-website-design-banner-png.png"
+            src="Banner.png"
             className="max-w-full  h-60 sm:h-80 object-cover rounded-lg shadow-2xl"
           />
           <div className="mx-auto max-w-3xl text-center">
