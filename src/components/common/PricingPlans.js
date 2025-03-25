@@ -131,7 +131,7 @@ function PricingPlans() {
               Subscription Plan
             </h2>
             <h2 className="font-bold mt-4 text-xl text-secondary align-middle mr-2">
-              $150/monthly
+              $200/monthly
             </h2>
 
             <ul className="text-left mt-4">
