@@ -100,7 +100,7 @@ function PricingPlans() {
           <div className="card-body pt-12 pb-16 items-center text-center">
             <h2 className="card-title text-xl">One-Time Payment</h2>
             <h2 className="font-bold mt-4 text-gray-600 text-xl">
-              $1500 (One-time)
+              $500-$1500 (One-time)
             </h2>
 
             <ul className="text-left mt-4">
@@ -159,7 +159,7 @@ function PricingPlans() {
               E-commerce Package
             </h2>
             <h2 className="font-bold mt-4 text-xl text-gray-600 align-middle mr-2">
-              Starting at $5,000
+              Starting at $3,000
             </h2>
 
             <ul className="text-left mt-4">

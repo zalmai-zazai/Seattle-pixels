@@ -57,7 +57,7 @@ export default function Page() {
             <div className="flex flex-col">
               <h2 className="font-bold text-2xl">GET IN TOUCH</h2>
               <p className="mt-3 text-xl">
-                Send me an email with all details about your website. I usually
+                Send us an email with all details about your website. We usually
                 respond immediately or within 24 hours.
               </p>
             </div>
@@ -77,7 +77,7 @@ export default function Page() {
                 </div>
                 <div>
                   <h1 className="font-bold text-xl">Email</h1>
-                  <p>ZazaiZalmai70@gmail.com</p>
+                  <p>pixelsseattle@gmail.com</p>
                 </div>
               </div>
               <div className="flex gap-2">

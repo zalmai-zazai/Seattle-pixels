@@ -80,7 +80,7 @@ function Footer() {
               Phone (206) 670 688
             </Link>
             <Link href="/terms-and-conditions" className="link link-hover">
-              ZazaiZalmai70@gmail.com
+              pixelsseattle@gmail.com
             </Link>
             <Link href="/terms-and-conditions" className="link link-hover">
               United States

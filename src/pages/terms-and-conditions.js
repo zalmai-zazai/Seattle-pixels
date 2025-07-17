@@ -229,7 +229,7 @@ export default function Page() {
         </p>
 
         <p>
-          <b>Email: </b>ZazaiZalmai70@gmail.com
+          <b>Email: </b>pixelsseattle@gmail.com
         </p>
         <p>
           <b>Phone: </b>206 670 6888
