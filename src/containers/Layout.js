@@ -53,6 +53,10 @@ export default function Layout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         />
+        {/* <script
+          src="//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js"
+          async
+        ></script> */}
         <meta itemProp="image" content="/logo.png" />
       </Head>
       <div className="drawer">

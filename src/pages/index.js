@@ -12,10 +12,19 @@ import WhatWeDo from "@/components/home/WhatWeDo";
 import Testimonials from "@/components/home/Testimonials";
 import WhatWeOffer from "@/components/home/WhatWeOffer";
 import Banner from "@/components/home/Banner";
+import { useEffect } from "react";
 
 // const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
   return (
     <>
       <PageMetaTags title="Home" description={""} url="" />
