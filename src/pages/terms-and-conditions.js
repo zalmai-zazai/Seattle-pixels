@@ -334,7 +334,8 @@ export default function Page() {
                 Questions About Our Terms?
               </h3>
               <p className="text-base-content/70 text-lg mb-6 max-w-2xl mx-auto">
-                We're here to help clarify any part of our terms and conditions.
+                We are here to help clarify any part of our terms and
+                conditions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a
