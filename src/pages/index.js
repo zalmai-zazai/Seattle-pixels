@@ -7,21 +7,58 @@ import Testimonials from "@/components/home/Testimonials";
 import Pricing from "@/components/home/Pricing";
 import Projects from "@/components/home/Projects";
 import CTA2 from "@/components/home/CTA2";
+import dynamic from "next/dynamic";
+
+// Lazy load heavier components below the fold
+const WhatWeDoLazy = dynamic(() => import("@/components/home/WhatWeDo"), {
+  loading: () => <div className="min-h-[400px] bg-base-100"></div>,
+});
+
+const ProjectsLazy = dynamic(() => import("@/components/home/Projects"), {
+  loading: () => <div className="min-h-[400px] bg-base-100"></div>,
+});
+
+const TestimonialsLazy = dynamic(
+  () => import("@/components/home/Testimonials"),
+  {
+    loading: () => <div className="min-h-[400px] bg-base-100"></div>,
+  }
+);
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const script = document.createElement("script");
-      script.src = "//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
+      // Check if mobile device
+      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
 
-    // Trigger animations after page load
-    setIsVisible(true);
+      // Load chat script with lower priority
+      setTimeout(() => {
+        const script = document.createElement("script");
+        script.src = "//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }, 3000); // Delay chat widget loading
+
+      // Trigger animations after page load with mobile consideration
+      const animationDelay = isMobile ? 500 : 100;
+      setTimeout(() => {
+        setIsVisible(true);
+      }, animationDelay);
+    }
   }, []);
+
+  // Simplified animation classes for mobile performance
+  const getAnimationClass = (baseClass, delayClass) => {
+    if (isMobile) {
+      return isVisible
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-4";
+    }
+    return isVisible ? `${baseClass} ${delayClass}` : "opacity-0";
+  };
 
   return (
     <>
@@ -45,18 +82,18 @@ export default function Home() {
       </div>
 
       <div className="scroll-smooth">
-        {/* Hero Banner with animations */}
-        <div className={isVisible ? "animate-slide-up" : "opacity-0"}>
+        {/* Hero Banner - Critical, load immediately */}
+        <div className={getAnimationClass("animate-slide-up", "")}>
           <Banner />
         </div>
 
-        {/* What We Do with staggered animation */}
-        <div className={isVisible ? "animate-slide-up delay-300" : "opacity-0"}>
-          <WhatWeDo />
+        {/* What We Do - Lazy loaded */}
+        <div className={getAnimationClass("animate-slide-up", "delay-300")}>
+          <WhatWeDoLazy />
         </div>
 
         {/* Value Proposition */}
-        <div className={isVisible ? "animate-fade-in delay-500" : "opacity-0"}>
+        <div className={getAnimationClass("animate-fade-in", "delay-500")}>
           <WhatWeOffer
             showHeading={true}
             title="Professional Websites Starting at $150/month"
@@ -64,25 +101,23 @@ export default function Home() {
           />
         </div>
 
-        {/* Social Proof */}
-        <div className={isVisible ? "animate-slide-up delay-700" : "opacity-0"}>
-          <Testimonials />
+        {/* Social Proof - Lazy loaded */}
+        <div className={getAnimationClass("animate-slide-up", "delay-700")}>
+          <TestimonialsLazy />
         </div>
 
         {/* Pricing */}
-        <div className={isVisible ? "animate-fade-in delay-900" : "opacity-0"}>
+        <div className={getAnimationClass("animate-fade-in", "delay-900")}>
           <Pricing />
         </div>
 
-        {/* Portfolio */}
-        <div
-          className={isVisible ? "animate-slide-up delay-1100" : "opacity-0"}
-        >
-          <Projects />
+        {/* Portfolio - Lazy loaded */}
+        <div className={getAnimationClass("animate-slide-up", "delay-1100")}>
+          <ProjectsLazy />
         </div>
 
         {/* Final CTA */}
-        <div className={isVisible ? "animate-fade-in delay-1300" : "opacity-0"}>
+        <div className={getAnimationClass("animate-fade-in", "delay-1300")}>
           <CTA2 />
         </div>
       </div>

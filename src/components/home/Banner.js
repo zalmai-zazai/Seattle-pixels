@@ -16,10 +16,10 @@ const Banner = () => {
         <div className="relative mx-auto max-w-screen-xl px-4 py-20 lg:py-32 flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-12">
           {/* Text Content */}
           <div className="lg:w-1/2 mx-auto lg:mx-0 text-center lg:text-left animate-slide-up">
-            <h1 className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-4xl font-extrabold text-transparent sm:text-6xl lg:text-7xl leading-tight">
-              Small Businesses
-              <span className="block mt-2 bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent">
-                Web Designer
+            <h1 className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-4xl font-extrabold text-transparent sm:text-6xl lg:text-6xl leading-tight">
+              Premium <span className="text-orange-600">Web</span> Solutions
+              <span className="block mt-2 lg:text-5xl bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent">
+                With <span className="text-gray-300">Seattle Pixels</span>
               </span>
             </h1>
 
