@@ -1,184 +1,267 @@
 import { useState, useEffect, useRef } from "react";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "@/store/modalSlice";
 
-const freePointers = [
-  "Full Design & Development",
-  "$25/mo for Hosting",
-  "$100 per page after the first 5 pages",
-  "Optional: $50/mo for unlimited content update",
-  "Add a blog for just $150",
-  "24/7 Customer Support",
-  "Lifetime Updates",
-];
-
-const advancePointers = [
-  "Complete Design & Development",
-  "Hosting included",
-  "$100 per page after 5 pages",
-  "Add a blog for $150",
-  "Unlimited content edits",
-  "24/7 Customer Support",
-  "Lifetime Updates",
-];
-
-const professionalPointers = [
-  "Custom Shopify Store",
-  "Full app configuration",
-  "Shipping integration included",
-  "Shopify walkthrough tutorial",
-  "Fully editable via Shopify CMS",
-  "Optional: $50/mo for unlimited edits",
-  "24/7 Customer Support",
+const packages = [
+  {
+    title: "Basic Business Website",
+    description:
+      "Perfect for small businesses needing a professional online presence",
+    features: [
+      "Custom 5-page website design",
+      "Mobile-responsive layout",
+      "Basic SEO optimization",
+      "Contact form integration",
+      "Social media integration",
+      "1-month free support",
+      "Google Analytics setup",
+    ],
+    cta: "Get Quote",
+    popular: false,
+    gradient: "from-green-500 to-emerald-500",
+    icon: "💼",
+  },
+  {
+    title: "Advanced Business Solution",
+    description: "Ideal for growing businesses with more complex needs",
+    features: [
+      "Custom 10-page website",
+      "Advanced responsive design",
+      "Premium SEO optimization",
+      "Content management system",
+      "E-commerce functionality ready",
+      "Blog integration",
+      "6-month support included",
+      "Performance optimization",
+    ],
+    cta: "Get Quote",
+    popular: true,
+    gradient: "from-orange-500 to-amber-500",
+    icon: "🚀",
+  },
+  {
+    title: "E-Commerce & Custom Solutions",
+    description: "Complete online store or complex web applications",
+    features: [
+      "Full e-commerce functionality",
+      "Custom database design",
+      "Payment gateway integration",
+      "Inventory management",
+      "User account system",
+      "Advanced security features",
+      "1-year premium support",
+      "Priority development",
+      "Custom features as needed",
+    ],
+    cta: "Get Quote",
+    popular: false,
+    gradient: "from-blue-500 to-cyan-500",
+    icon: "🛒",
+  },
 ];
 
 function PricingPlans() {
-  const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  const cardRefs = useRef([]); // Create a ref array to hold references to the cards
+  const [isVisible, setIsVisible] = useState(false);
+  const [cardVisibility, setCardVisibility] = useState(
+    new Array(3).fill(false)
+  );
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const options = {
-      threshold: 0.2, // When 20% of the card is visible
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const sectionObserver = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "scale-100"); // Show the card with transition
-          entry.target.classList.remove("opacity-0", "scale-90"); // Remove hidden and scale-down classes
-        } else {
-          entry.target.classList.add("opacity-0", "scale-90"); // Hide and scale-down when out of view
-          entry.target.classList.remove("opacity-100", "scale-100"); // Ensure it's hidden
+          setIsVisible(true);
+          // Stagger card animations
+          setTimeout(() => setCardVisibility([true, false, false]), 200);
+          setTimeout(() => setCardVisibility([true, true, false]), 400);
+          setTimeout(() => setCardVisibility([true, true, true]), 600);
         }
-      });
-    }, options);
+      },
+      { threshold: 0.2 }
+    );
 
-    cardRefs.current.forEach((card) => {
-      if (card) {
-        observer.observe(card);
-      }
-    });
+    if (sectionRef.current) {
+      sectionObserver.observe(sectionRef.current);
+    }
 
     return () => {
-      cardRefs.current.forEach((card) => {
-        if (card) {
-          observer.unobserve(card);
-        }
-      });
+      if (sectionRef.current) sectionObserver.unobserve(sectionRef.current);
     };
   }, []);
 
-  const openPaymentPage = async (paymentType) => {
-    if (!isLoggedIn) {
-      dispatch(
-        openModal({
-          title: "",
-          size: "lg",
-          bodyType: "SIGN_IN_MODAL",
-          extraObject: { isSignIn: true },
-        })
-      );
-      return 1;
-    }
-    setLoading(true);
-    console.log("Handle payment here");
-    setLoading(false);
-  };
-
   return (
-    <>
-      <div className="grid md:grid-cols-3 grid-cols-1 mt-2 w-full gap-8">
-        <div
-          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-green-200"
-          ref={(el) => (cardRefs.current[0] = el)}
-        >
-          <div className="card-body pt-12 pb-16 items-center text-center">
-            <h2 className="card-title text-xl">One-Time Payment</h2>
-            <h2 className="font-bold mt-4 text-gray-600 text-xl">
-              $500-$1500 (One-time)
-            </h2>
+    <div ref={sectionRef} className="w-full">
+      {/* Main Packages Grid */}
+      <div className="grid md:grid-cols-3 grid-cols-1 mt-12 lg:mt-16 gap-8 lg:gap-12">
+        {packages.map((pkg, index) => (
+          <div
+            key={index}
+            className={`group transform transition-all duration-700 ease-out ${
+              cardVisibility[index]
+                ? "opacity-100 translate-y-0 scale-100"
+                : "opacity-0 translate-y-12 scale-95"
+            }`}
+            style={{
+              transitionDelay: cardVisibility[index]
+                ? `${index * 200}ms`
+                : "0ms",
+            }}
+          >
+            {/* Background Glow */}
+            <div
+              className={`absolute -inset-4 bg-gradient-to-r ${pkg.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500`}
+            ></div>
 
-            <ul className="text-left mt-4">
-              {freePointers.map((p, k) => (
-                <li key={k} className="mt-2">
-                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Link href="/contact-us" className="w-full">
-              <button className="btn bg-green-200 btn-sm mt-8 w-full border-none hover:bg-green-200 btn-outline normal-case">
-                Get Started
-              </button>
-            </Link>
-          </div>
-        </div>
+            <div
+              className={`relative card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 h-full ${
+                pkg.popular ? "ring-2 ring-secondary/50" : ""
+              }`}
+            >
+              {pkg.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-secondary text-secondary-content px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                    Most Popular
+                  </span>
+                </div>
+              )}
 
-        <div
-          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-orange-200"
-          ref={(el) => (cardRefs.current[1] = el)}
-        >
-          <div className="card-body pt-12 pb-16 items-center">
-            <div className="badge badge-secondary badge-sm absolute text-white mt-1 ml-1 left-2 top-2">
-              Most Popular
+              <div className="card-body p-6 lg:p-8">
+                {/* Package Header */}
+                <div className="text-center mb-6">
+                  <div
+                    className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r ${pkg.gradient} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {pkg.icon}
+                  </div>
+                  <h3 className="text-xl lg:text-2xl font-bold text-base-content">
+                    {pkg.title}
+                  </h3>
+                  <p className="text-base-content/70 mt-2 text-sm">
+                    {pkg.description}
+                  </p>
+                </div>
+
+                {/* Custom Quote Notice */}
+                <div className="bg-base-200 rounded-lg p-4 text-center mb-6">
+                  <div className="text-lg font-semibold text-base-content">
+                    Custom Pricing
+                  </div>
+                  <div className="text-sm text-base-content/70 mt-1">
+                    Get a personalized quote based on your requirements
+                  </div>
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {pkg.features.map((feature, featureIndex) => (
+                    <li
+                      key={featureIndex}
+                      className="flex items-start space-x-3"
+                    >
+                      <CheckIcon className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-base-content/80 text-sm lg:text-base">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA Button */}
+                <Link href="/contact-us" className="w-full mt-auto">
+                  <button
+                    className={`btn btn-lg w-full font-semibold hover-glow transform hover:scale-105 transition-all duration-300 ${
+                      pkg.popular ? "btn-primary" : "btn-outline btn-primary"
+                    }`}
+                  >
+                    {pkg.cta}
+                    <svg
+                      className="w-5 h-5 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </button>
+                </Link>
+              </div>
             </div>
-            <h2 className="card-title text-xl text-center">
-              Subscription Plan
-            </h2>
-            <h2 className="font-bold mt-4 text-xl text-secondary align-middle mr-2">
-              $200/monthly
-            </h2>
-
-            <ul className="text-left mt-4">
-              {advancePointers.map((p, k) => (
-                <li key={k} className="mt-2">
-                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Link href="/contact-us" className="w-full">
-              <button className="btn btn-sm mt-8 bg-orange-200 hover:bg-orange-300 border-none normal-case w-full">
-                Get Started
-              </button>
-            </Link>
           </div>
-        </div>
+        ))}
+      </div>
 
-        <div
-          className="card w-full mt-6 bg-base-100 shadow-2xl opacity-0 scale-90 transition-all duration-500 hover:shadow-blue-200"
-          ref={(el) => (cardRefs.current[2] = el)}
-        >
-          <div className="card-body pt-12 pb-16 items-center">
-            <h2 className="card-title text-xl text-center">
-              E-commerce Package
-            </h2>
-            <h2 className="font-bold mt-4 text-xl text-gray-600 align-middle mr-2">
-              Starting at $3,000
-            </h2>
+      {/* Why Custom Pricing Section */}
+      <div
+        className={`mt-16 text-center transition-all duration-700 delay-800 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <div className="bg-base-200 rounded-2xl p-8 border border-base-300 max-w-4xl mx-auto">
+          <h3 className="text-2xl lg:text-3xl font-bold text-base-content mb-4">
+            Why Custom Pricing?
+          </h3>
+          <div className="grid md:grid-cols-3 gap-6 text-left">
+            <div className="text-center">
+              <div className="text-3xl mb-2">🎯</div>
+              <h4 className="font-bold text-base-content mb-2">
+                Tailored Solutions
+              </h4>
+              <p className="text-base-content/70 text-sm">
+                Every business has unique needs. We provide pricing that matches
+                your specific requirements.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl mb-2">💡</div>
+              <h4 className="font-bold text-base-content mb-2">
+                No Hidden Costs
+              </h4>
+              <p className="text-base-content/70 text-sm">
+                Get a transparent quote with all features and costs outlined
+                upfront.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl mb-2">⚡</div>
+              <h4 className="font-bold text-base-content mb-2">
+                Flexible Options
+              </h4>
+              <p className="text-base-content/70 text-sm">
+                Choose from various packages and customize features to fit your
+                budget.
+              </p>
+            </div>
+          </div>
 
-            <ul className="text-left mt-4">
-              {professionalPointers.map((p, k) => (
-                <li key={k} className="mt-2">
-                  <CheckIcon className="w-4 h-4 text-green-500 inline-block" />{" "}
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <Link href="/contact-us" className="w-full">
-              <button className="btn btn-sm bg-blue-100 hover:bg-blue-200 border-none mt-8 btn-outline normal-case w-full">
-                Get Started
+          <div className="mt-8">
+            <Link href="/contact-us">
+              <button className="btn btn-primary btn-lg px-8 text-lg font-semibold hover-glow transform hover:scale-105 transition-all duration-300">
+                Get Your Free Quote Today
+                <svg
+                  className="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
               </button>
             </Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,105 +1,86 @@
 import Link from "next/link";
 import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import Navlinks from "./Navlinks";
-import { themeChange } from "theme-change";
 import { useEffect, useState } from "react";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
-import NavProfileLinks from "./NavProfileLinks";
+import { useTheme } from "@/contexts/ThemeContext";
 
 function Navbar() {
-  // const [currentTheme, setCurrentTheme] = useState(
-  //   localStorage.getItem("theme")
-  // );
-  //   const [currentTheme, setCurrentTheme] = useState(null);
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const logoutUser = () => {};
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  // useEffect(() => {
-  //   themeChange(false);
-  //   console.log(currentTheme);
-  //   if (currentTheme === null) {
-  //     if (
-  //       window.matchMedia &&
-  //       window.matchMedia("(prefers-color-scheme: dark)").matches
-  //     ) {
-  //       setCurrentTheme("dark");
-  //     } else {
-  //       setCurrentTheme("light");
-  //     }
-  //   }
-  //   // 👆 false parameter is required for react project
-  // }, []);
+  if (!mounted) {
+    return (
+      <div className="w-full flex justify-center shadow-lg bg-base-100">
+        <div className="navbar py-2 bg-base-100 max-w-6xl">
+          <div className="navbar-start">
+            <Link href="/">
+              <span className="font-bold text-xl">
+                <img
+                  className="mask inline-block w-52 sm:w-72"
+                  src="/logo.png"
+                  alt="Seattle Pixels"
+                />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full flex justify-center  shadow-lg  ">
-      <div className="navbar py-2 bg-base-100 max-w-6xl">
-        <div className="navbar-start ">
+    <div className="w-full flex justify-center shadow-lg bg-base-100 transition-colors duration-300">
+      <div className="navbar py-2 bg-base-100 max-w-6xl transition-colors duration-300">
+        <div className="navbar-start">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <Bars3Icon className="h-5 inline-block w-5" />
             </label>
           </div>
 
-          <div className="md:flex-1 flex-none  ">
+          <div className="md:flex-1 flex-none">
             <Link href="/">
               <span className="font-bold text-xl">
                 <img
-                  className="mask inline-block w-52  sm:w-72"
+                  className="mask inline-block w-52 sm:w-72 transition-opacity duration-300"
                   src="/logo.png"
-                />{" "}
-                {/* Seattle Pixels Web Design */}
+                  alt="Seattle Pixels"
+                />
               </span>
             </Link>
           </div>
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal custom-menu">
+          <ul className="menu menu-horizontal">
             <Navlinks />
           </ul>
-          {/* 
-          <label className="swap ">
-            <input type="checkbox" />
-            <SunIcon
-              data-set-theme="light"
-              data-act-class="ACTIVECLASS"
-              className={
-                "fill-current w-5 h-5 " +
-                (currentTheme === "dark" ? "swap-on" : "swap-off")
-              }
-            />
-            <MoonIcon
-              data-set-theme="dark"
-              data-act-class="ACTIVECLASS"
-              className={
-                "fill-current w-5 h-5 " +
-                (currentTheme === "light" ? "swap-on" : "swap-off")
-              }
-            />
-          </label> */}
-
-          {/* <div className="dropdown ml-6 dropdown-end">
-
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                    <div className="w-6 rounded-full">
-                    <img src="https://placeimg.com/80/80/people" alt="profile" />
-                    </div>
-                </label>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow   rounded-box w-52">
-                    <li className="justify-between">
-                    <Link href={'/app/settings-profile'}>
-                        Settings
-                        </Link>
-                    </li>
-                    <div className="divider mt-0 mb-0"></div>
-                    <li><a onClick={logoutUser}>Logout</a></li>
-                </ul>
-            </div> */}
         </div>
-        {/* <div className="navbar-end hidden lg:flex">
-          <NavProfileLinks />
-        </div> */}
+
+        <div className="navbar-end">
+          <button
+            onClick={toggleTheme}
+            className="btn btn-ghost btn-circle hover:bg-base-200 transition-all duration-300"
+            aria-label={`Switch to ${
+              theme === "seattle-light" ? "dark" : "light"
+            } mode`}
+            title={`Switch to ${
+              theme === "seattle-light" ? "dark" : "light"
+            } mode`}
+          >
+            {theme === "seattle-light" ? (
+              <MoonIcon className="h-5 w-5 text-base-content" />
+            ) : (
+              <SunIcon className="h-5 w-5 text-base-content" />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

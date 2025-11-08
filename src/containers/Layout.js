@@ -49,10 +49,10 @@ export default function Layout({ children }) {
         <meta name="og:site_name" content="Space AI" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="" />
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        />
+        /> */}
         {/* <script
           src="//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js"
           async

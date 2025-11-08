@@ -3,64 +3,72 @@ import Link from "next/link";
 function Navlinks() {
   return (
     <>
-      {/* <li className="mr-2"><Link href="/features">Features</Link></li> */}
-
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/about-us">
-          {" "}
-          <span className="material-symbols-outlined  text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/about-us"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             select_all
-          </span>{" "}
+          </span>
           About Us
         </Link>
       </li>
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/pricing">
-          <span className="material-symbols-outlined  text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/pricing"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             attach_money
-          </span>{" "}
+          </span>
           Pricing
         </Link>
       </li>
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/blogs">
-          {" "}
-          <span className="material-symbols-outlined  text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/blogs"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             grid_view
-          </span>{" "}
+          </span>
           Blogs
         </Link>
       </li>
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/privacy-policy">
-          {" "}
-          <span className="material-symbols-outlined  text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/privacy-policy"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             policy
-          </span>{" "}
-          Privacy and policy
+          </span>
+          Privacy Policy
         </Link>
       </li>
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/faqs">
-          {" "}
-          <span className="material-symbols-outlined  text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/faqs"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             quiz
-          </span>{" "}
-          FAQS
+          </span>
+          FAQs
         </Link>
       </li>
-      <li className="mr-2 font-bold text-gray-500">
-        <Link href="/contact-us">
-          {" "}
-          <span className="material-symbols-outlined text-blue-300">
+      <li className="mr-2">
+        <Link
+          href="/contact-us"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
             perm_contact_calendar
-          </span>{" "}
+          </span>
           Contact Us
         </Link>
       </li>
-      {/* <li className="mr-2">
-        <Link href="/start-designing">Start Designing</Link>
-      </li> */}
     </>
   );
 }
