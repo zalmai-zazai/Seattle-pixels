@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import FeatureImageContainer from "../common/FeatureImageContainer";
+import Image from "next/image";
 
 function WhatWeOffer({ title, leftText, showHeading }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -105,11 +106,16 @@ function WhatWeOffer({ title, leftText, showHeading }) {
 
                 {/* Main image container */}
                 <div className="relative bg-base-100 rounded-2xl p-8 shadow-2xl border border-base-300 group-hover:shadow-3xl transition-all duration-500 group-hover:-translate-y-2">
-                  <img
-                    src="favicon-32x32.png"
-                    alt="Seattle Pixels Services"
-                    className="w-full max-w-sm mx-auto h-64 object-contain transform group-hover:scale-105 transition duration-500"
-                  />
+                  <div className="bg-white dark:bg-white rounded-xl p-4">
+                    <Image
+                      src="/favicon-32x32.png"
+                      alt="Seattle Pixels Services"
+                      width={256}
+                      height={256}
+                      className="w-full max-w-sm mx-auto h-64 object-contain transform group-hover:scale-105 transition duration-500"
+                      sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 30vw"
+                    />
+                  </div>
 
                   {/* Floating elements */}
                   <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full animate-pulse"></div>

@@ -96,8 +96,8 @@ export default function Home() {
         <div className={getAnimationClass("animate-fade-in", "delay-500")}>
           <WhatWeOffer
             showHeading={true}
-            title="Professional Websites Starting at $150/month"
-            leftText="Get a complete 5-page custom website package with design, development, hosting, unlimited updates, 24/7 support, and ongoing maintenance. Perfect for businesses wanting a professional online presence without the upfront costs."
+            title="Professional Web Solutions That Drive Growth"
+            leftText="Partner with us for custom website development that aligns with your business goals. We create responsive, high-performing websites with comprehensive support to help you succeed online."
           />
         </div>
 

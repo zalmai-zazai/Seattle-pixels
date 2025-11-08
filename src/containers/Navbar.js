@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
 import { useTheme } from "@/contexts/ThemeContext";
+import Image from "next/image";
 
 function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -47,10 +48,14 @@ function Navbar() {
           <div className="md:flex-1 flex-none">
             <Link href="/">
               <span className="font-bold text-xl">
-                <img
-                  className="mask inline-block w-52 sm:w-72 transition-opacity duration-300"
+                <Image
                   src="/logo.png"
                   alt="Seattle Pixels"
+                  width={288} // Matches your w-72 (72 * 4 = 288)
+                  height={80} // Adjust based on your logo aspect ratio
+                  className="mask inline-block w-52 sm:w-72 transition-opacity duration-300 dark:invert dark:brightness-0 dark:hue-rotate-180"
+                  priority={true} // Important for logo in navbar
+                  sizes="(max-width: 640px) 208px, 288px"
                 />
               </span>
             </Link>

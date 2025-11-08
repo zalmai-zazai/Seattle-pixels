@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Banner = () => {
@@ -24,9 +25,9 @@ const Banner = () => {
             </h1>
 
             <p className="mx-auto mt-6 max-w-xl text-lg sm:text-xl/relaxed text-base-content/90 animate-fade-in delay-300">
-              At Seattle Pixels Web Design, we build 100% hand-coded, custom
-              websites designed to drive results. Starting at $150/mo, our
-              services include expert SEO to help your business grow online.
+              At Seattle Pixels we build completely custom website package
+              tailored to your business needs. We handle design, development,
+              and ongoing support so you can focus on what you do best.
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4 animate-slide-up delay-500">
@@ -81,10 +82,17 @@ const Banner = () => {
           <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slide-in-left delay-300">
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-              <img
-                src="Banner.png"
+
+              <Image
+                src="/Banner.png"
                 alt="Seattle Pixels Web Design"
+                width={800}
+                height={400}
                 className="relative w-full max-w-2xl mx-auto h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-2xl transform group-hover:scale-105 transition duration-500"
+                priority={true} // Important for above-the-fold images
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
               />
               {/* Floating elements */}
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-bounce"></div>

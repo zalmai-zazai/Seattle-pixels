@@ -159,18 +159,18 @@ function Footer() {
                 >
                   About Us
                 </Link>
-                <Link
-                  href="/services"
+                {/* <Link
+                  href="/whatweoffer"
                   className="link link-hover text-base-content/80 hover:text-primary transition-colors duration-300 block py-1"
                 >
                   Our Services
-                </Link>
-                <Link
+                </Link> */}
+                {/* <Link
                   href="/portfolio"
                   className="link link-hover text-base-content/80 hover:text-primary transition-colors duration-300 block py-1"
                 >
                   Portfolio
-                </Link>
+                </Link> */}
                 <Link
                   href="/faqs"
                   className="link link-hover text-base-content/80 hover:text-primary transition-colors duration-300 block py-1"
@@ -198,18 +198,18 @@ function Footer() {
                 >
                   Terms & Conditions
                 </Link>
-                <Link
+                {/* <Link
                   href="/cookie-policy"
                   className="link link-hover text-base-content/80 hover:text-primary transition-colors duration-300 block py-1"
                 >
                   Cookie Policy
-                </Link>
-                <Link
+                </Link> */}
+                {/* <Link
                   href="/sitemap"
                   className="link link-hover text-base-content/80 hover:text-primary transition-colors duration-300 block py-1"
                 >
                   Sitemap
-                </Link>
+                </Link> */}
               </div>
             </div>
 
@@ -300,12 +300,12 @@ function Footer() {
               >
                 Terms
               </Link>
-              <Link
+              {/* <Link
                 href="/sitemap"
                 className="hover:text-white transition-colors duration-300 text-sm"
               >
                 Sitemap
-              </Link>
+              </Link> */}
               <div className="flex items-center space-x-2 text-sm">
                 <span>Made with</span>
                 <span className="text-red-400 animate-pulse">❤️</span>
