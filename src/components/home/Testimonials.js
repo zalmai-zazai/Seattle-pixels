@@ -86,7 +86,7 @@ function Testimonials() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"></div>
           <p className="mt-6 text-lg lg:text-xl text-base-content/80 max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our clients have to say
+            Dont just take our word for it. Here ss what our clients have to say
             about their experience with Seattle Pixels.
           </p>
         </div>
@@ -118,7 +118,7 @@ function Testimonials() {
                   {/* Quote Icon */}
                   <div className="text-right mb-4">
                     <span className="text-4xl opacity-20 transform group-hover:scale-110 transition-transform duration-300">
-                      "
+                      {`"`}
                     </span>
                   </div>
 
@@ -129,7 +129,7 @@ function Testimonials() {
 
                   {/* Testimonial Text */}
                   <p className="text-base-content/80 text-center leading-relaxed italic mb-6 flex-grow">
-                    "{testimonial.text}"
+                    {testimonial.text}
                   </p>
 
                   {/* Client Info */}

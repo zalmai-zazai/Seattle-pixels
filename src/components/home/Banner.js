@@ -32,7 +32,7 @@ const Banner = () => {
             <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4 animate-slide-up delay-500">
               <a
                 className="btn btn-primary px-8 py-4 text-lg font-semibold hover-glow transform hover:scale-105 transition-all duration-300 shadow-lg"
-                href="/contact-us"
+                href={"/contact-us"}
               >
                 <span className="flex items-center gap-2">
                   Get Started
@@ -54,7 +54,7 @@ const Banner = () => {
 
               <a
                 className="btn btn-outline btn-primary px-8 py-4 text-lg font-semibold border-2 hover:bg-primary hover:text-primary-content transition-all duration-300 shadow-lg"
-                href="/about-us"
+                href={"/about-us"}
               >
                 Learn More
               </a>
