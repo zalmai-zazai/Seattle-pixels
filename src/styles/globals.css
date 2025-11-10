@@ -2,126 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling and transitions */
-html {
-  scroll-behavior: smooth;
+/* Fix double scrolling issue */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
-/* Smooth theme transitions */
+/* Remove any horizontal scrolling */
 * {
-  transition: background-color 0.3s ease, border-color 0.3s ease,
-    color 0.3s ease;
-}
-/* Critical: Ensure hero section doesn't block rendering */
-.hero-section {
-  content-visibility: auto;
-}
-/* Custom gradient animations */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-/* Reduce animations for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-/* Mobile-specific performance improvements */
-@media (max-width: 768px) {
-  .animate-gradient,
-  .hover-glow,
-  [class*="animate-"] {
-    animation: none !important;
-    transition: opacity 0.3s ease !important;
-  }
-
-  /* Prevent heavy filters on mobile */
-  .blur-3xl {
-    display: none;
-  }
-}
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 6s ease infinite;
+  box-sizing: border-box;
 }
 
-/* Hover glow effect - theme aware */
-.hover-glow:hover {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
+/* Ensure no element creates its own scroll context */
+.min-h-screen {
+  overflow: visible !important;
 }
 
-[data-theme="seattle-dark"] .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(96, 165, 250, 0.4);
-}
-
-/* Typewriter effect */
-.typewriter {
-  overflow: hidden;
-  border-right: 2px solid;
-  white-space: nowrap;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #3b82f6;
-  }
-}
-
-[data-theme="seattle-dark"] .typewriter {
-  animation: typing 3.5s steps(40, end),
-    blink-caret-dark 0.75s step-end infinite;
-}
-
-@keyframes blink-caret-dark {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #60a5fa;
-  }
-}
-
-/* Custom scrollbar for dark mode */
-[data-theme="seattle-dark"] ::-webkit-scrollbar {
-  width: 8px;
-}
-
-[data-theme="seattle-dark"] ::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-
-[data-theme="seattle-dark"] ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-
-[data-theme="seattle-dark"] ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+/* Fix for any container that might be creating scroll */
+.container,
+.max-w-6xl,
+.max-w-7xl,
+.max-w-screen-xl {
+  overflow: visible !important;
 }
