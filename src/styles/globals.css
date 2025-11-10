@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 /* Fix double scrolling issue */
-html,
+/* html,
 body {
   overflow-x: hidden;
   max-width: 100%;
-}
+} */
 
 /* Remove any horizontal scrolling */
 * {
@@ -25,4 +25,31 @@ body {
 .max-w-7xl,
 .max-w-screen-xl {
   overflow: visible !important;
+}
+
+/* Force scrollable on all elements */
+* {
+  touch-action: pan-y !important;
+}
+
+/* Ensure body allows scrolling */
+/* Fix touch scrolling issues */
+html,
+body {
+  touch-action: pan-y;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure no element blocks scrolling */
+
+/* Fix for any overlay elements that might block scroll */
+.fixed,
+.absolute {
+  pointer-events: none !important;
+}
+
+.fixed > *,
+.absolute > * {
+  pointer-events: auto !important;
 }
