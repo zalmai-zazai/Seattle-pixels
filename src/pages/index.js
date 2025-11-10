@@ -12,6 +12,45 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Debug: Find all elements causing scrollbars
+    const findScrollElements = () => {
+      console.log("=== SCROLLBAR DEBUG ===");
+
+      // Check for elements with overflow
+      document.querySelectorAll("*").forEach((el) => {
+        const style = window.getComputedStyle(el);
+        if (
+          style.overflow === "auto" ||
+          style.overflow === "scroll" ||
+          style.overflowY === "auto" ||
+          style.overflowY === "scroll"
+        ) {
+          console.log("Scrollable element:", el.className, el);
+        }
+      });
+
+      // Check for fixed height elements that might cause overflow
+      document.querySelectorAll("*").forEach((el) => {
+        const style = window.getComputedStyle(el);
+        if (style.height && style.overflow !== "visible") {
+          console.log(
+            "Fixed height element:",
+            el.className,
+            "height:",
+            style.height
+          );
+        }
+      });
+
+      // Check viewport vs document height
+      console.log("Viewport height:", window.innerHeight);
+      console.log("Document height:", document.documentElement.scrollHeight);
+    };
+
+    // Run after page loads
+    setTimeout(findScrollElements, 1000);
+  }, []);
+  useEffect(() => {
     if (typeof window !== "undefined") {
       // Load chat script after page is interactive
       setTimeout(() => {

@@ -53,15 +53,15 @@ export default function Layout({ children }) {
       <div className="drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-          {/* REMOVED: overflow-y-auto and flex-col wrappers */}
+          {/* REMOVED: overflow-y-auto flex flex-col - this was creating first scroll container */}
           <Navbar />
 
-          {/* SINGLE scroll container for main content */}
-          <main className="min-h-screen">{children}</main>
+          {/* REMOVED: overflow-y-auto - this was creating second scroll container */}
+          <main>{children}</main>
           <Footer />
         </div>
 
-        <div className="drawer-side">
+        <div className="drawer-side ">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 h-full bg-base-100">
             <li className="mr-2 font-bold text-gray-500">
