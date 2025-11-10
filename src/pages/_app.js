@@ -1,4 +1,5 @@
 import Layout from "@/containers/Layout";
+import CleanLayout from "@/containers/CleanLayout"; // Fixed import path
 import "@/styles/globals.css";
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
@@ -10,7 +11,11 @@ import mixpanel from "mixpanel-browser";
 import { Crisp } from "crisp-sdk-web";
 import TagManager from "react-gtm-module";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { useRouter } from "next/router";
+
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
     } else {
@@ -26,13 +31,23 @@ export default function App({ Component, pageProps }) {
     }
   }, []);
 
+  // Use CleanLayout for test pages, regular Layout for others
+  const getLayout = () => {
+    if (router.pathname === "/test-home") {
+      return CleanLayout;
+    }
+    return Layout;
+  };
+
+  const PageLayout = getLayout();
+
   return (
     <ThemeProvider>
       <Provider store={store}>
-        <Layout>
+        <PageLayout>
           <GoogleAnalytics trackPageViews />
           <Component {...pageProps} />
-        </Layout>
+        </PageLayout>
       </Provider>
     </ThemeProvider>
   );
