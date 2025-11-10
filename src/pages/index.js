@@ -62,7 +62,7 @@ export default function Home() {
       <div className="scroll-smooth">
         {/* Remove all animation wrapper classes - just render components directly */}
         <Banner />
-        <WhatWeDo />
+        {/* <WhatWeDo /> */}
         <WhatWeOffer
           showHeading={true}
           title="Custom Web Solutions for Your Business"
