@@ -79,16 +79,16 @@ const Banner = () => {
           </div>
 
           {/* Image Content */}
-          <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slide-in-left delay-300">
+          <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slide-in-left delay-0">
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-0 group-hover:duration-200 animate-pulse"></div>
 
               <Image
                 src="/Banner.png"
                 alt="Seattle Pixels Web Design"
                 width={800}
                 height={400}
-                className="relative w-full max-w-2xl mx-auto h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-2xl transform group-hover:scale-105 transition duration-500"
+                className="relative w-full max-w-2xl mx-auto h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-2xl transform group-hover:scale-105 transition duration-0"
                 priority={true} // Important for above-the-fold images
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                 placeholder="blur"
@@ -98,7 +98,7 @@ const Banner = () => {
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-bounce"></div>
               <div
                 className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary rounded-full animate-bounce"
-                style={{ animationDelay: "1s" }}
+                style={{ animationDelay: "0s" }}
               ></div>
             </div>
           </div>
