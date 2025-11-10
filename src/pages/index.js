@@ -1,10 +1,67 @@
 import { useEffect, useState } from "react";
 import PageMetaTags from "@/containers/PageMetaTags";
+import Banner from "@/components/home/Banner";
+import WhatWeDo from "@/components/home/WhatWeDo";
+import WhatWeOffer from "@/components/home/WhatWeOffer";
+import Testimonials from "@/components/home/Testimonials";
+import Pricing from "@/components/home/Pricing";
+import Projects from "@/components/home/Projects";
+import CTA2 from "@/components/home/CTA2";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Debug: Find all elements causing scrollbars
+    const findScrollElements = () => {
+      console.log("=== SCROLLBAR DEBUG ===");
+
+      // Check for elements with overflow
+      document.querySelectorAll("*").forEach((el) => {
+        const style = window.getComputedStyle(el);
+        if (
+          style.overflow === "auto" ||
+          style.overflow === "scroll" ||
+          style.overflowY === "auto" ||
+          style.overflowY === "scroll"
+        ) {
+          console.log("Scrollable element:", el.className, el);
+        }
+      });
+
+      // Check for fixed height elements that might cause overflow
+      document.querySelectorAll("*").forEach((el) => {
+        const style = window.getComputedStyle(el);
+        if (style.height && style.overflow !== "visible") {
+          console.log(
+            "Fixed height element:",
+            el.className,
+            "height:",
+            style.height
+          );
+        }
+      });
+
+      // Check viewport vs document height
+      console.log("Viewport height:", window.innerHeight);
+      console.log("Document height:", document.documentElement.scrollHeight);
+    };
+
+    // Run after page loads
+    setTimeout(findScrollElements, 1000);
+  }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Load chat script after page is interactive
+      setTimeout(() => {
+        const script = document.createElement("script");
+        script.src = "//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }, 2000);
+    }
+
+    // Mark page as loaded after a short delay
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
@@ -29,30 +86,31 @@ export default function Home() {
         url="https://www.seattlepixels.com/"
       />
 
-      {/* Simple test sections to identify scrolling issue */}
-      <div className="min-h-screen">
-        <section className="h-screen bg-blue-100 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold">
-              TEST 1 - Click here and try to scroll
-            </h1>
-            <p className="mt-4">
-              If scrolling works here, the problem is in your Banner component
-            </p>
-          </div>
-        </section>
+      <div itemScope itemType="https://schema.org/WebSite">
+        <meta itemProp="url" content="https://www.seattlepixels.com/" />
+        <meta
+          itemProp="name"
+          content="Seattle Pixels - Creative Web Solutions"
+        />
+        <meta
+          itemProp="description"
+          content="Professional web development agency in Seattle creating modern, responsive websites with ongoing support and maintenance."
+        />
+      </div>
 
-        <section className="h-screen bg-green-100 flex items-center justify-center">
-          <h1 className="text-4xl font-bold">
-            TEST 2 - Should scroll smoothly
-          </h1>
-        </section>
-
-        <section className="h-screen bg-red-100 flex items-center justify-center">
-          <h1 className="text-4xl font-bold">
-            TEST 3 - Should scroll smoothly
-          </h1>
-        </section>
+      <div className="scroll-smooth">
+        {/* Remove all animation wrapper classes - just render components directly */}
+        <Banner />
+        <WhatWeDo />
+        <WhatWeOffer
+          showHeading={true}
+          title="Custom Web Solutions for Your Business"
+          leftText="Get a completely tailored website package designed specifically for your business needs. We handle everything from design and development to hosting and ongoing support, ensuring your online presence drives real results."
+        />
+        <Testimonials />
+        <Pricing />
+        <Projects />
+        <CTA2 />
       </div>
     </>
   );
