@@ -40,6 +40,7 @@ export default function Layout({ children }) {
         <meta name="image" content="/logo.png" />
         <link rel="icon" href="/favicon-32x32.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
+        {/* <link rel="manifest" href="/site.webmanifest" /> */}
         <meta name="theme-color" content="#3b82f6" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/logo.png" />
@@ -48,17 +49,27 @@ export default function Layout({ children }) {
         <meta name="og:site_name" content="Space AI" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="" />
+        {/* <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        /> */}
+        {/* <script
+          src="//code.tidio.co/cetmi260l9tu57d8omqr0ee2awzejuig.js"
+          async
+        ></script> */}
         <meta itemProp="image" content="/logo.png" />
       </Head>
       <div className="drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-          {/* REMOVED: overflow-y-auto flex flex-col - this was creating first scroll container */}
-          <Navbar />
+          <div className="overflow-y-auto  flex flex-col ">
+            <Navbar />
 
-          {/* REMOVED: overflow-y-auto - this was creating second scroll container */}
-          <main>{children}</main>
-          <Footer />
+            <div className="overflow-y-auto">
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </div>
         </div>
 
         <div className="drawer-side ">
