@@ -79,7 +79,7 @@ const Banner = () => {
           </div>
 
           {/* Image Content */}
-          <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slide-in-left delay-300">
+          {/* <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slide-in-left delay-300">
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
 
@@ -94,14 +94,14 @@ const Banner = () => {
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
               />
-              {/* Floating elements */}
+        
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-bounce"></div>
               <div
                 className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary rounded-full animate-bounce"
                 style={{ animationDelay: "1s" }}
               ></div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Scroll indicator */}
