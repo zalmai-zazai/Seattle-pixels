@@ -65,7 +65,7 @@ export default function Layout({ children }) {
           <div className="overflow-y-auto  flex flex-col ">
             <Navbar />
 
-            <div className="overflow-y-auto">
+            <div className="">
               <main>{children}</main>
               <Footer />
             </div>
