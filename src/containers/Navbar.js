@@ -51,10 +51,10 @@ function Navbar() {
                 <Image
                   src="/logo.png"
                   alt="Seattle Pixels"
-                  width={288} // Matches your w-72 (72 * 4 = 288)
-                  height={80} // Adjust based on your logo aspect ratio
-                  className="mask inline-block w-52 sm:w-72 transition-opacity duration-300 dark:invert dark:brightness-0 dark:hue-rotate-180"
-                  priority={true} // Important for logo in navbar
+                  width={288}
+                  height={80}
+                  className="mask inline-block w-52 sm:w-72 transition-opacity duration-300 "
+                  priority={true}
                   sizes="(max-width: 640px) 208px, 288px"
                 />
               </span>
