@@ -163,7 +163,7 @@ export default function Page({ leftText, imageUrl, title }) {
                   {[
                     { number: "50+", label: "Projects" },
                     { number: "100%", label: "Satisfaction" },
-                    { number: "2+", label: "Years Exp" },
+                    { number: "5+", label: "Years Exp" },
                   ].map((stat, index) => (
                     <div
                       key={index}
@@ -202,7 +202,7 @@ export default function Page({ leftText, imageUrl, title }) {
                 {/* Trust Indicator */}
                 <div className="flex items-center justify-center lg:justify-start gap-3 mt-6 text-base-content/60 text-sm">
                   <span>⭐</span>
-                  <span>Trusted by small businesses nationwide</span>
+                  <span>Trusted by all businesses nationwide</span>
                 </div>
               </div>
             </div>

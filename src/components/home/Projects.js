@@ -3,6 +3,26 @@ import Link from "next/link";
 
 const projectsData = [
   {
+    title: "Pro Plumbing",
+    description:
+      "We developed a professional website for a plumbing business using (React, Tailwind CSS, and Framer Motion). The platform allows customers to easily request plumbing services, view available solutions, and contact certified plumbers — delivering a reliable and user-friendly experience that reflects the company’s commitment to quality and fast service.",
+    img: "plumbing.png",
+    link: "https://pro-plumbing.netlify.app/",
+    technologies: ["React", "Tailwind Css", "Motion"],
+    category: "Professional Website",
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    title: "Cutting Edge",
+    description:
+      "We developed a modern website for a barber shop using ( React, Tailwind Css and motion). The platform allows customers to easily book appointments, explore available styles and services, and connect with professional barbers — delivering a smooth and stylish online experience that reflects the shop’s premium quality.",
+    img: "barbershop.png",
+    link: "https://cutting-edgee.netlify.app/",
+    technologies: ["React", "Node.js", "Tailwind Css", "Motion"],
+    category: "Sleek Style Website",
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
     title: "Food Delivery App",
     description:
       "We built a Food Delivery App for a restaurant using the MERN stack (MongoDB, Express, React, and Node.js). The app provides a seamless experience for customers to browse the menu, place orders, and track deliveries, enhancing the restaurant's overall service efficiency.",

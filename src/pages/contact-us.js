@@ -50,7 +50,7 @@ export default function Page() {
     {
       icon: "📞",
       title: "Phone",
-      content: "(206) 670-6888",
+      content: " (206) 614-1333",
       description: "Call or text us directly",
       gradient: "from-blue-500 to-cyan-500",
     },

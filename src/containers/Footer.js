@@ -224,7 +224,7 @@ function Footer() {
                     📞
                   </span>
                   <span className="group-hover:text-primary transition-colors duration-300">
-                    (206) 670-6888
+                    (206) 614-1333
                   </span>
                 </div>
                 <div className="flex items-center space-x-3 text-base-content/80 group cursor-pointer">
