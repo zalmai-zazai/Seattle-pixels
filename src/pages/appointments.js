@@ -1,3 +1,4 @@
+// pages/admin/appointments.js
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import AppointmentList from "@/components/account/AppointmentList";
@@ -9,6 +10,15 @@ export default function Page() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [stats, setStats] = useState({
+    total: 0,
+    pending: 0,
+    confirmed: 0,
+    completed: 0,
+    cancelled: 0,
+    thisWeek: 0,
+  });
+  const [loadingStats, setLoadingStats] = useState(true);
   const sectionRef = useRef(null);
   const router = useRouter();
 
@@ -40,6 +50,51 @@ export default function Page() {
     };
   }, [isAuthenticated]);
 
+  // NEW: Fetch real statistics
+  const fetchStats = async () => {
+    try {
+      setLoadingStats(true);
+      const response = await fetch("/api/appointment");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
+
+      const data = await response.json();
+      const appointments = data.appointments || [];
+
+      // Calculate statistics
+      const now = new Date();
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - now.getDay());
+      startOfWeek.setHours(0, 0, 0, 0);
+
+      const thisWeekAppointments = appointments.filter((appt) => {
+        const apptDate = new Date(appt.date);
+        return apptDate >= startOfWeek && appt.status !== "cancelled";
+      });
+
+      setStats({
+        total: appointments.length,
+        pending: appointments.filter((a) => a.status === "pending").length,
+        confirmed: appointments.filter((a) => a.status === "confirmed").length,
+        completed: appointments.filter((a) => a.status === "completed").length,
+        cancelled: appointments.filter((a) => a.status === "cancelled").length,
+        thisWeek: thisWeekAppointments.length,
+      });
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+    } finally {
+      setLoadingStats(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchStats();
+    }
+  }, [isAuthenticated]);
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
@@ -56,6 +111,11 @@ export default function Page() {
     setIsAuthenticated(false);
     sessionStorage.removeItem("adminAuthenticated");
     setPassword("");
+  };
+
+  // NEW: Refresh stats function
+  const handleRefreshStats = () => {
+    fetchStats();
   };
 
   // Login Form - Simple Password Protection
@@ -118,6 +178,38 @@ export default function Page() {
     );
   }
 
+  // Stats configuration with real data
+  const statCards = [
+    {
+      label: "Total Appointments",
+      value: stats.total,
+      icon: "📅",
+      color: "from-blue-500 to-cyan-500",
+      change: "+0", // We can make this dynamic later
+    },
+    {
+      label: "Pending",
+      value: stats.pending,
+      icon: "⏰",
+      color: "from-orange-500 to-amber-500",
+      change: "+0",
+    },
+    {
+      label: "Confirmed",
+      value: stats.confirmed,
+      icon: "✅",
+      color: "from-green-500 to-emerald-500",
+      change: "+0",
+    },
+    {
+      label: "This Week",
+      value: stats.thisWeek,
+      icon: "📊",
+      color: "from-purple-500 to-pink-500",
+      change: "+0",
+    },
+  ];
+
   // Main Dashboard (only shown when authenticated)
   return (
     <>
@@ -148,13 +240,27 @@ export default function Page() {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={handleLogout}
-                className="btn btn-sm btn-outline btn-error gap-2"
-              >
-                <span>🚪</span>
-                Logout
-              </button>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleRefreshStats}
+                  className="btn btn-sm btn-outline btn-primary gap-2"
+                  disabled={loadingStats}
+                >
+                  {loadingStats ? (
+                    <span className="loading loading-spinner loading-xs"></span>
+                  ) : (
+                    "🔄"
+                  )}
+                  Refresh
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-sm btn-outline btn-error gap-2"
+                >
+                  <span>🚪</span>
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -176,7 +282,7 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Quick Stats */}
+          {/* Quick Stats - UPDATED WITH REAL DATA */}
           <div
             className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 transition-all duration-700 delay-300 ${
               isVisible
@@ -184,36 +290,7 @@ export default function Page() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            {[
-              {
-                label: "Total Appointments",
-                value: "12",
-                icon: "📅",
-                color: "from-blue-500 to-cyan-500",
-                change: "+2",
-              },
-              {
-                label: "Pending",
-                value: "3",
-                icon: "⏰",
-                color: "from-orange-500 to-amber-500",
-                change: "+1",
-              },
-              {
-                label: "Confirmed",
-                value: "5",
-                icon: "✅",
-                color: "from-green-500 to-emerald-500",
-                change: "+3",
-              },
-              {
-                label: "This Week",
-                value: "4",
-                icon: "📊",
-                color: "from-purple-500 to-pink-500",
-                change: "+2",
-              },
-            ].map((stat, index) => (
+            {statCards.map((stat, index) => (
               <div
                 key={index}
                 className="bg-base-100 rounded-2xl p-6 shadow-xl border border-base-300 transform hover:scale-105 transition-all duration-300 group"
@@ -225,11 +302,16 @@ export default function Page() {
                     </p>
                     <div className="flex items-baseline space-x-2">
                       <p className="text-2xl lg:text-3xl font-bold text-base-content mt-1">
-                        {stat.value}
+                        {loadingStats ? (
+                          <span className="loading loading-spinner loading-xs"></span>
+                        ) : (
+                          stat.value
+                        )}
                       </p>
-                      <span className="text-sm text-green-500 font-semibold">
+                      {/* We can make this dynamic later */}
+                      {/* <span className="text-sm text-green-500 font-semibold">
                         {stat.change}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   <div
@@ -240,6 +322,66 @@ export default function Page() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Status Overview Bar */}
+          <div
+            className={`bg-base-200 rounded-2xl p-6 mb-8 border border-base-300 transition-all duration-700 delay-500 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center text-primary text-xl">
+                  📈
+                </div>
+                <div>
+                  <h3 className="font-bold text-base-content text-lg">
+                    Appointment Overview
+                  </h3>
+                  <p className="text-base-content/70">
+                    Real-time status breakdown
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <div className="stats stats-horizontal shadow">
+                  <div className="stat">
+                    <div className="stat-figure text-warning">⏰</div>
+                    <div className="stat-title">Pending</div>
+                    <div className="stat-value text-warning text-lg">
+                      {loadingStats ? "-" : stats.pending}
+                    </div>
+                  </div>
+
+                  <div className="stat">
+                    <div className="stat-figure text-info">✅</div>
+                    <div className="stat-title">Confirmed</div>
+                    <div className="stat-value text-info text-lg">
+                      {loadingStats ? "-" : stats.confirmed}
+                    </div>
+                  </div>
+
+                  <div className="stat">
+                    <div className="stat-figure text-success">🎉</div>
+                    <div className="stat-title">Completed</div>
+                    <div className="stat-value text-success text-lg">
+                      {loadingStats ? "-" : stats.completed}
+                    </div>
+                  </div>
+
+                  <div className="stat">
+                    <div className="stat-figure text-error">❌</div>
+                    <div className="stat-title">Cancelled</div>
+                    <div className="stat-value text-error text-lg">
+                      {loadingStats ? "-" : stats.cancelled}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Action Bar */}
@@ -265,13 +407,21 @@ export default function Page() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
-                <button className="btn btn-primary gap-2">
-                  <span>📧</span>
-                  Export CSV
+                <button
+                  onClick={handleRefreshStats}
+                  className="btn btn-primary gap-2"
+                  disabled={loadingStats}
+                >
+                  {loadingStats ? (
+                    <span className="loading loading-spinner loading-xs"></span>
+                  ) : (
+                    "🔄"
+                  )}
+                  Refresh Data
                 </button>
                 <button className="btn btn-outline btn-primary gap-2">
-                  <span>🔄</span>
-                  Refresh Data
+                  <span>📧</span>
+                  Export CSV
                 </button>
                 <button className="btn btn-outline btn-primary gap-2">
                   <span>📋</span>
@@ -291,12 +441,19 @@ export default function Page() {
           >
             <div className="bg-base-100 rounded-2xl shadow-xl border border-base-300 overflow-hidden">
               <div className="p-6 border-b border-base-300">
-                <h2 className="text-2xl font-bold text-base-content">
-                  Recent Appointments
-                </h2>
-                <p className="text-base-content/70 mt-1">
-                  Manage and view all client appointments
-                </p>
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-base-content">
+                      Recent Appointments
+                    </h2>
+                    <p className="text-base-content/70 mt-1">
+                      Manage and view all client appointments
+                    </p>
+                  </div>
+                  <div className="text-sm text-base-content/60">
+                    Last updated: {new Date().toLocaleTimeString()}
+                  </div>
+                </div>
               </div>
               <AppointmentList />
             </div>

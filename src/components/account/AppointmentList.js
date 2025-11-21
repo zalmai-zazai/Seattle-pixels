@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [responseMessage, setResponseMessage] = useState("");
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [filter, setFilter] = useState("all"); // all, upcoming, past
+  const [filter, setFilter] = useState("all"); // all, pending, confirmed, completed, cancelled
 
   const fetchAppointments = async () => {
     try {
@@ -29,56 +29,59 @@ const AppointmentList = () => {
     }
   };
 
-  const deleteAppointment = async (id) => {
+  // NEW: Update appointment status instead of deleting
+  const updateAppointmentStatus = async (id, newStatus) => {
     try {
-      const response = await axios.delete("/api/appointment", {
-        data: { id },
+      const response = await fetch("/api/appointment", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, status: newStatus }),
       });
 
-      if (response.data.success) {
-        setAppointments((prevAppointments) =>
-          prevAppointments.filter((appointment) => appointment._id !== id)
-        );
-        setResponseMessage("✅ Appointment marked as completed and removed");
-        setSelectedAppointment(null);
+      const data = await response.json();
 
-        // Clear success message after 3 seconds
-        setTimeout(() => setResponseMessage(""), 3000);
+      if (response.ok) {
+        toast.success(data.message);
+        fetchAppointments(); // Refresh the list
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      console.error("Error deleting appointment:", error);
-      setResponseMessage("❌ Error completing appointment");
-
-      // Clear error message after 3 seconds
-      setTimeout(() => setResponseMessage(""), 3000);
+      console.error("Error updating appointment:", error);
+      toast.error("Error updating appointment status");
     }
   };
 
+  // NEW: Get status badge styling
+  const getStatusBadge = (status) => {
+    const statusConfig = {
+      pending: { class: "badge-warning", label: "⏰ Pending", icon: "⏰" },
+      confirmed: { class: "badge-info", label: "✅ Confirmed", icon: "✅" },
+      completed: { class: "badge-success", label: "🎉 Completed", icon: "🎉" },
+      cancelled: { class: "badge-error", label: "❌ Cancelled", icon: "❌" },
+    };
+
+    return statusConfig[status] || statusConfig.pending;
+  };
+
+  // UPDATED: Filter appointments based on status
   const getFilteredAppointments = () => {
-    const now = new Date();
-    switch (filter) {
-      case "upcoming":
-        return appointments.filter((appt) => new Date(appt.date) > now);
-      case "past":
-        return appointments.filter((appt) => new Date(appt.date) <= now);
-      default:
-        return appointments;
-    }
+    if (filter === "all") return appointments;
+    return appointments.filter((appt) => appt.status === filter);
   };
 
-  const getAppointmentStatus = (appointmentDate) => {
-    const now = new Date();
-    const appointment = new Date(appointmentDate);
-
-    if (appointment > now) {
-      return {
-        status: "upcoming",
-        color: "text-warning",
-        badge: "badge-warning",
-      };
-    } else {
-      return { status: "past", color: "text-error", badge: "badge-error" };
-    }
+  // NEW: Get status counts for filters
+  const getStatusCounts = () => {
+    const counts = {
+      all: appointments.length,
+      pending: appointments.filter((a) => a.status === "pending").length,
+      confirmed: appointments.filter((a) => a.status === "confirmed").length,
+      completed: appointments.filter((a) => a.status === "completed").length,
+      cancelled: appointments.filter((a) => a.status === "cancelled").length,
+    };
+    return counts;
   };
 
   useEffect(() => {
@@ -111,41 +114,19 @@ const AppointmentList = () => {
   }
 
   const filteredAppointments = getFilteredAppointments();
+  const statusCounts = getStatusCounts();
 
   return (
     <div className="space-y-6">
-      {/* Response Message */}
-      {responseMessage && (
-        <div
-          className={`alert ${
-            responseMessage.includes("❌") ? "alert-error" : "alert-success"
-          } transition-all duration-300`}
-        >
-          <span>{responseMessage}</span>
-        </div>
-      )}
-
-      {/* Filter Controls */}
+      {/* Filter Controls - UPDATED */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex flex-wrap gap-2">
           {[
-            {
-              id: "all",
-              label: "All Appointments",
-              count: appointments.length,
-            },
-            {
-              id: "upcoming",
-              label: "Upcoming",
-              count: appointments.filter((a) => new Date(a.date) > new Date())
-                .length,
-            },
-            {
-              id: "past",
-              label: "Past",
-              count: appointments.filter((a) => new Date(a.date) <= new Date())
-                .length,
-            },
+            { id: "all", label: "All Appointments", icon: "📅" },
+            { id: "pending", label: "Pending", icon: "⏰" },
+            { id: "confirmed", label: "Confirmed", icon: "✅" },
+            { id: "completed", label: "Completed", icon: "🎉" },
+            { id: "cancelled", label: "Cancelled", icon: "❌" },
           ].map((filterOption) => (
             <button
               key={filterOption.id}
@@ -154,8 +135,10 @@ const AppointmentList = () => {
                 filter === filterOption.id ? "btn-primary" : "btn-outline"
               }`}
             >
-              {filterOption.label}
-              <span className="badge badge-sm">{filterOption.count}</span>
+              {filterOption.icon} {filterOption.label}
+              <span className="badge badge-sm">
+                {statusCounts[filterOption.id]}
+              </span>
             </button>
           ))}
         </div>
@@ -168,7 +151,7 @@ const AppointmentList = () => {
         </button>
       </div>
 
-      {/* Appointments Grid */}
+      {/* Appointments Grid - UPDATED */}
       {filteredAppointments.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-6xl mb-4">📅</div>
@@ -184,8 +167,11 @@ const AppointmentList = () => {
       ) : (
         <div className="grid gap-6">
           {filteredAppointments.map((appointment) => {
-            const status = getAppointmentStatus(appointment.date);
+            const statusBadge = getStatusBadge(appointment.status);
             const isUpcoming = new Date(appointment.date) > new Date();
+            const canComplete =
+              appointment.status === "pending" ||
+              appointment.status === "confirmed";
 
             return (
               <div
@@ -208,9 +194,16 @@ const AppointmentList = () => {
                           <h3 className="text-xl font-bold text-base-content">
                             {appointment.name}
                           </h3>
-                          <span className={`badge ${status.badge} badge-sm`}>
-                            {status.status}
+                          <span
+                            className={`badge ${statusBadge.class} badge-sm`}
+                          >
+                            {statusBadge.icon} {statusBadge.label}
                           </span>
+                          {appointment.appointmentId && (
+                            <span className="badge badge-outline badge-sm">
+                              ID: {appointment.appointmentId}
+                            </span>
+                          )}
                         </div>
                         <div className="flex flex-wrap gap-4 text-sm text-base-content/70">
                           <span className="flex items-center gap-1">
@@ -238,14 +231,50 @@ const AppointmentList = () => {
                           ? "👁️ Hide"
                           : "👁️ View"}
                       </button>
-                      <button
-                        onClick={() => deleteAppointment(appointment._id)}
-                        className={`btn btn-sm gap-2 ${
-                          isUpcoming ? "btn-warning" : "btn-success"
-                        }`}
-                      >
-                        {isUpcoming ? "❌ Cancel" : "✅ Complete"}
-                      </button>
+
+                      {/* Status Action Buttons */}
+                      {appointment.status === "pending" && (
+                        <button
+                          onClick={() =>
+                            updateAppointmentStatus(
+                              appointment._id,
+                              "confirmed"
+                            )
+                          }
+                          className="btn btn-sm btn-info gap-2"
+                        >
+                          ✅ Confirm
+                        </button>
+                      )}
+
+                      {canComplete && (
+                        <button
+                          onClick={() =>
+                            updateAppointmentStatus(
+                              appointment._id,
+                              "completed"
+                            )
+                          }
+                          className="btn btn-sm btn-success gap-2"
+                        >
+                          🎉 Complete
+                        </button>
+                      )}
+
+                      {(appointment.status === "pending" ||
+                        appointment.status === "confirmed") && (
+                        <button
+                          onClick={() =>
+                            updateAppointmentStatus(
+                              appointment._id,
+                              "cancelled"
+                            )
+                          }
+                          className="btn btn-sm btn-error gap-2"
+                        >
+                          ❌ Cancel
+                        </button>
+                      )}
                     </div>
                   </div>
 
@@ -254,7 +283,7 @@ const AppointmentList = () => {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold">📅 Scheduled:</span>
-                        <span className={status.color}>
+                        <span>
                           {format(new Date(appointment.date), "PPP 'at' p")}
                         </span>
                       </div>
@@ -269,16 +298,18 @@ const AppointmentList = () => {
                       </div>
                     </div>
 
-                    {isUpcoming && (
-                      <div className="bg-warning/10 rounded-lg p-3 border border-warning/20">
-                        <div className="flex items-center gap-2 text-warning">
-                          <span>⏰</span>
-                          <span className="font-semibold">
-                            Upcoming Appointment
-                          </span>
+                    {isUpcoming &&
+                      appointment.status !== "completed" &&
+                      appointment.status !== "cancelled" && (
+                        <div className="bg-warning/10 rounded-lg p-3 border border-warning/20">
+                          <div className="flex items-center gap-2 text-warning">
+                            <span>⏰</span>
+                            <span className="font-semibold">
+                              Upcoming Appointment
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </div>
 
                   {/* Expanded Details */}
@@ -321,30 +352,26 @@ const AppointmentList = () => {
         </div>
       )}
 
-      {/* Summary */}
+      {/* Summary - UPDATED */}
       {appointments.length > 0 && (
         <div className="bg-base-200 rounded-2xl p-4 border border-base-300">
           <div className="flex flex-wrap justify-between items-center gap-4 text-sm">
             <div className="flex items-center gap-2">
               <span className="font-semibold">📊 Summary:</span>
-              <span>{appointments.length} total appointments</span>
+              <span>{statusCounts.all} total appointments</span>
             </div>
             <div className="flex flex-wrap gap-4">
               <span className="text-warning">
-                ⏰{" "}
-                {
-                  appointments.filter((a) => new Date(a.date) > new Date())
-                    .length
-                }{" "}
-                upcoming
+                ⏰ {statusCounts.pending} pending
+              </span>
+              <span className="text-info">
+                ✅ {statusCounts.confirmed} confirmed
               </span>
               <span className="text-success">
-                ✅{" "}
-                {
-                  appointments.filter((a) => new Date(a.date) <= new Date())
-                    .length
-                }{" "}
-                completed
+                🎉 {statusCounts.completed} completed
+              </span>
+              <span className="text-error">
+                ❌ {statusCounts.cancelled} cancelled
               </span>
             </div>
           </div>

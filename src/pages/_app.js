@@ -10,6 +10,8 @@ import mixpanel from "mixpanel-browser";
 import { Crisp } from "crisp-sdk-web";
 import TagManager from "react-gtm-module";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
@@ -32,6 +34,18 @@ export default function App({ Component, pageProps }) {
         <Layout>
           <GoogleAnalytics trackPageViews />
           <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </Layout>
       </Provider>
     </ThemeProvider>

@@ -1,10 +1,10 @@
+// components/account/AppointmentForm.js
 import { useState } from "react";
-import { addAppointment } from "@/lib/action";
+import { toast } from "react-toastify";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AppointmentForm = () => {
-  const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -14,10 +14,27 @@ const AppointmentForm = () => {
     date: new Date(),
   });
 
+  // Simple phone formatting
+  const formatPhone = (value) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 6)
+      return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
+    return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(
+      6,
+      10
+    )}`;
+  };
+
+  // SIMPLE TIME FILTER: Only show times between 9 AM and 5 PM
+  const filterTime = (time) => {
+    const hours = time.getHours();
+    return hours >= 9 && hours < 17; // 9 AM to 5 PM
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setMessage("");
 
     try {
       const response = await fetch("/api/appointment", {
@@ -25,12 +42,17 @@ const AppointmentForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          phone: formData.phone.replace(/\D/g, ""),
+        }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        setMessage(
-          "🎉 Appointment booked successfully! We'll contact you soon."
+        toast.success(
+          "📝 Appointment request submitted successfully! We'll review and confirm via email within 2-4 hours."
         );
         setFormData({
           name: "",
@@ -40,18 +62,27 @@ const AppointmentForm = () => {
           date: new Date(),
         });
       } else {
-        setMessage("❌ Error booking appointment. Please try again.");
+        toast.error(
+          data.message || "❌ Error booking appointment. Please try again."
+        );
       }
     } catch (error) {
-      console.error("Something went wrong!", error);
-      setMessage("❌ Something went wrong. Please try again.");
+      console.error("Network error:", error);
+      toast.error(
+        "❌ Network error. Please check your connection and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (field === "phone") {
+      const formatted = formatPhone(value);
+      setFormData((prev) => ({ ...prev, phone: formatted }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    }
   };
 
   return (
@@ -59,13 +90,11 @@ const AppointmentForm = () => {
       {/* Name Field */}
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold text-base-content">
-            Full Name
-          </span>
+          <span className="label-text font-semibold">Full Name</span>
         </label>
         <input
           type="text"
-          className="input input-bordered w-full focus:input-primary transition-all duration-300"
+          className="input input-bordered w-full"
           placeholder="Enter your full name"
           required
           value={formData.name}
@@ -76,13 +105,11 @@ const AppointmentForm = () => {
       {/* Email Field */}
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold text-base-content">
-            Email Address
-          </span>
+          <span className="label-text font-semibold">Email Address</span>
         </label>
         <input
           type="email"
-          className="input input-bordered w-full focus:input-primary transition-all duration-300"
+          className="input input-bordered w-full"
           placeholder="your.email@example.com"
           required
           value={formData.email}
@@ -93,32 +120,26 @@ const AppointmentForm = () => {
       {/* Phone Field */}
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold text-base-content">
-            Phone Number
-          </span>
+          <span className="label-text font-semibold">Phone Number</span>
         </label>
         <input
           type="tel"
-          className="input input-bordered w-full focus:input-primary transition-all duration-300"
+          className="input input-bordered w-full"
           placeholder="(555) 123-4567"
           required
           value={formData.phone}
           onChange={(e) => handleInputChange("phone", e.target.value)}
+          maxLength={14}
         />
       </div>
 
       {/* Message Field */}
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold text-base-content">
-            Project Details
-            <span className="text-sm font-normal text-base-content/60 ml-2">
-              (Tell us about your website needs)
-            </span>
-          </span>
+          <span className="label-text font-semibold">Project Details</span>
         </label>
         <textarea
-          className="textarea textarea-bordered w-full h-32 focus:textarea-primary transition-all duration-300 resize-none"
+          className="textarea textarea-bordered w-full h-32"
           placeholder="Please describe your project, business type, timeline, and any specific requirements..."
           required
           value={formData.message}
@@ -126,110 +147,42 @@ const AppointmentForm = () => {
         />
       </div>
 
-      {/* Date Picker */}
+      {/* Date Picker - ONLY SHOWS 9 AM to 5 PM */}
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold text-base-content">
+          <span className="label-text font-semibold">
             Preferred Consultation Time
           </span>
         </label>
-        <div className="relative">
-          <DatePicker
-            selected={formData.date}
-            onChange={(date) => handleInputChange("date", date)}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={30}
-            timeCaption="Time"
-            dateFormat="MMMM d, yyyy h:mm aa"
-            minDate={new Date()}
-            className="input input-bordered w-full focus:input-primary transition-all duration-300"
-            placeholderText="Select date and time"
-            popperClassName="z-50"
-          />
-          <div className="absolute right-3 top-3 text-base-content/40">📅</div>
-        </div>
+        <DatePicker
+          selected={formData.date}
+          onChange={(date) => handleInputChange("date", date)}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={30}
+          timeCaption="Time"
+          dateFormat="MMMM d, yyyy h:mm aa"
+          minDate={new Date()}
+          filterTime={filterTime} // THIS IS THE KEY LINE
+          className="input input-bordered w-full"
+          placeholderText="Select date and time (9 AM - 5 PM)"
+        />
         <div className="text-xs text-base-content/60 mt-2">
-          Well confirm your appointment via email
+          Available times: 9:00 AM - 5:00 PM, every 30 minutes
         </div>
       </div>
 
-      {/* Submit Button & Message */}
+      {/* Submit Button */}
       <div className="form-control mt-8">
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`btn btn-primary btn-lg w-full font-semibold hover-glow transform transition-all duration-300 ${
-            isSubmitting ? "loading" : "hover:scale-105"
+          className={`btn btn-primary btn-lg w-full ${
+            isSubmitting ? "loading" : ""
           }`}
         >
-          {isSubmitting ? (
-            <>
-              <span className="loading loading-spinner"></span>
-              Booking Appointment...
-            </>
-          ) : (
-            <>
-              Book Free Consultation
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </>
-          )}
+          {isSubmitting ? "Booking Appointment..." : "Book Free Consultation"}
         </button>
-
-        {/* Success/Error Message */}
-        {message && (
-          <div
-            className={`mt-4 p-4 rounded-xl transition-all duration-500 ${
-              message.includes("❌")
-                ? "bg-error/10 border border-error/20 text-error"
-                : "bg-success/10 border border-success/20 text-success"
-            }`}
-          >
-            <div className="flex items-center space-x-3">
-              <span className="text-xl">
-                {message.includes("❌") ? "❌" : "🎉"}
-              </span>
-              <span className="font-medium">
-                {message.replace(/[❌🎉]/g, "").trim()}
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Privacy Note */}
-      <div className="text-center mt-6">
-        <p className="text-sm text-base-content/60">
-          🔒 Your information is secure. We respect your privacy and never share
-          your data.
-        </p>
-      </div>
-
-      {/* Quick Response Info */}
-      <div className="bg-base-200 rounded-xl p-4 mt-4 border border-base-300">
-        <div className="flex items-center space-x-3">
-          <span className="text-2xl">⚡</span>
-          <div>
-            <h4 className="font-semibold text-base-content text-sm">
-              Fast Response Guarantee
-            </h4>
-            <p className="text-base-content/70 text-xs">
-              We typically respond within 2-4 hours during business days
-            </p>
-          </div>
-        </div>
       </div>
     </form>
   );
