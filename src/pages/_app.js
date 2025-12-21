@@ -12,6 +12,7 @@ import TagManager from "react-gtm-module";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
@@ -32,6 +33,19 @@ export default function App({ Component, pageProps }) {
     <ThemeProvider>
       <Provider store={store}>
         <Layout>
+          {/* Google Ads Tag */}
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=AW-17759596364"
+            strategy="afterInteractive"
+          />
+          <Script id="google-gtag" strategy="afterInteractive">
+            {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17759596364');
+    `}
+          </Script>
           <GoogleAnalytics trackPageViews />
           <Component {...pageProps} />
           <ToastContainer

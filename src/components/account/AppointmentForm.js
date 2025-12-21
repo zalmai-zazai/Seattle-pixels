@@ -61,6 +61,17 @@ const AppointmentForm = () => {
           message: "",
           date: new Date(),
         });
+        try {
+          if (typeof gtag === "function") {
+            gtag("event", "conversion", {
+              send_to: "AW-17759596364/YOUR_CONVERSION_ID",
+              value: 1.0,
+              currency: "USD",
+            });
+          }
+        } catch (err) {
+          console.error("Google Ads conversion error:", err);
+        }
       } else {
         toast.error(
           data.message || "❌ Error booking appointment. Please try again."
