@@ -103,6 +103,56 @@ export default function Page() {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 lg:pb-28">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Appointment Form */}
+            <div
+              ref={appointmentRef}
+              className={`transform transition-all duration-700 delay-300 ${
+                sectionVisibility.form
+                  ? "opacity-100 translate-x-0 scale-100"
+                  : "opacity-0 translate-x-10 scale-95"
+              }`}
+            >
+              <div className="relative group">
+                {/* Background Glow */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+                <div className="relative bg-base-100 rounded-2xl shadow-2xl border border-base-300 hover:shadow-3xl transition-all duration-500 group-hover:-translate-y-2">
+                  <div className="p-6 lg:p-8">
+                    <div className="text-center mb-8">
+                      <h2 className="text-2xl lg:text-3xl font-bold text-base-content mb-2">
+                        Book a Free Consultation
+                      </h2>
+                      <p className="text-base-content/70">
+                        Lets discuss your project and explore how we can help
+                        your business grow online.
+                      </p>
+                    </div>
+
+                    {/* Form Container */}
+                    <div className="transform transition-all duration-500 group-hover:scale-105">
+                      <AppointmentForm />
+                    </div>
+
+                    {/* Form Benefits */}
+                    <div className="mt-6 space-y-3 text-sm text-base-content/70">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-green-500">✓</span>
+                        <span>No obligation - free consultation</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-green-500">✓</span>
+                        <span>Get a custom quote for your project</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-green-500">✓</span>
+                        <span>Professional advice tailored to your needs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Contact Information */}
             <div
               ref={contactRef}
@@ -184,56 +234,6 @@ export default function Page() {
                   <div className="flex items-center gap-2">
                     <span>💎</span>
                     <span>Professional Service</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Appointment Form */}
-            <div
-              ref={appointmentRef}
-              className={`transform transition-all duration-700 delay-300 ${
-                sectionVisibility.form
-                  ? "opacity-100 translate-x-0 scale-100"
-                  : "opacity-0 translate-x-10 scale-95"
-              }`}
-            >
-              <div className="relative group">
-                {/* Background Glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
-                <div className="relative bg-base-100 rounded-2xl shadow-2xl border border-base-300 hover:shadow-3xl transition-all duration-500 group-hover:-translate-y-2">
-                  <div className="p-6 lg:p-8">
-                    <div className="text-center mb-8">
-                      <h2 className="text-2xl lg:text-3xl font-bold text-base-content mb-2">
-                        Book a Free Consultation
-                      </h2>
-                      <p className="text-base-content/70">
-                        Lets discuss your project and explore how we can help
-                        your business grow online.
-                      </p>
-                    </div>
-
-                    {/* Form Container */}
-                    <div className="transform transition-all duration-500 group-hover:scale-105">
-                      <AppointmentForm />
-                    </div>
-
-                    {/* Form Benefits */}
-                    <div className="mt-6 space-y-3 text-sm text-base-content/70">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-500">✓</span>
-                        <span>No obligation - free consultation</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-500">✓</span>
-                        <span>Get a custom quote for your project</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-500">✓</span>
-                        <span>Professional advice tailored to your needs</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
