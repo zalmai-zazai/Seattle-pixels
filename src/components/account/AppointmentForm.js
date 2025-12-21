@@ -62,15 +62,15 @@ const AppointmentForm = () => {
           date: new Date(),
         });
         try {
-          if (typeof gtag === "function") {
-            gtag("event", "conversion", {
-              send_to: "AW-17759596364/YOUR_CONVERSION_ID",
-              value: 1.0,
-              currency: "USD",
+          if (window.gtag) {
+            window.gtag("event", "appointment_booked", {
+              event_category: "lead",
+              event_label: "appointment_form",
+              value: 1,
             });
           }
         } catch (err) {
-          console.error("Google Ads conversion error:", err);
+          console.error("GA4 event error:", err);
         }
       } else {
         toast.error(
