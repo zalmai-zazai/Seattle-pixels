@@ -38,6 +38,18 @@ function Navlinks() {
       </li>
       <li className="mr-2">
         <Link
+          href="/industries"
+          className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
+        >
+          <span className="material-symbols-outlined text-primary mr-1">
+            business
+          </span>
+          Industries
+        </Link>
+      </li>
+
+      <li className="mr-2">
+        <Link
           href="/privacy-policy"
           className="font-semibold text-base-content hover:text-primary transition-colors duration-200"
         >
