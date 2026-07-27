@@ -67,7 +67,7 @@ const projectsData = [
 function Projects() {
   const [isVisible, setIsVisible] = useState(false);
   const [projectVisibility, setProjectVisibility] = useState(
-    new Array(projectsData.length).fill(false)
+    new Array(projectsData.length).fill(false),
   );
   const sectionRef = useRef(null);
   const projectRefs = useRef([]);
@@ -89,7 +89,7 @@ function Projects() {
           });
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (sectionRef.current) {
@@ -193,8 +193,8 @@ function Projects() {
                       projectVisibility[index]
                         ? "translate-x-0 opacity-100"
                         : index % 2 === 0
-                        ? "translate-x-10 opacity-0"
-                        : "-translate-x-10 opacity-0"
+                          ? "translate-x-10 opacity-0"
+                          : "-translate-x-10 opacity-0"
                     }`}
                   >
                     {/* Category Badge */}

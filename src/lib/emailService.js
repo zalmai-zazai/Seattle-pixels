@@ -58,7 +58,7 @@ export const emailTemplates = {
                 appointment.appointmentId
               }</p>
               <p><strong>Date & Time:</strong> ${new Date(
-                appointment.date
+                appointment.date,
               ).toLocaleString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -188,7 +188,7 @@ www.seattlepixels.com`,
                 appointment.appointmentId
               }</p>
               <p><strong>Original Date & Time:</strong> ${new Date(
-                appointment.date
+                appointment.date,
               ).toLocaleString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -260,6 +260,142 @@ The Seattle Pixels Team
 Seattle Pixels Web Design Agency
 Seattle, WA
 pixeslSeattle@gmail.com
+www.seattlepixels.com`,
+  }),
+
+  // NEW: Admin notification when someone books an appointment
+  adminNotification: (appointment) => ({
+    subject: `📅 New Appointment Request from ${appointment.name}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+          .container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+          .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+          .content { padding: 30px; }
+          .details { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+          .action-button { display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 10px 0; }
+          .footer { background: #f1f3f4; padding: 20px; text-align: center; color: #666; font-size: 14px; }
+          .status-badge { background: #ff9800; color: white; padding: 4px 12px; border-radius: 20px; display: inline-block; font-size: 14px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>📅 New Appointment Request!</h1>
+            <p>Seattle Pixels Web Design Agency</p>
+          </div>
+          <div class="content">
+            <p><strong>A new appointment has been requested and needs your review!</strong></p>
+            
+            <div style="text-align: center; margin: 10px 0;">
+              <span class="status-badge">⏰ PENDING REVIEW</span>
+            </div>
+
+            <div class="details">
+              <h3 style="margin-top: 0; color: #667eea;">Client Details</h3>
+              <p><strong>Name:</strong> ${appointment.name}</p>
+              <p><strong>Email:</strong> ${appointment.email}</p>
+              <p><strong>Phone:</strong> ${appointment.phone}</p>
+              <p><strong>Date & Time:</strong> ${new Date(
+                appointment.date,
+              ).toLocaleString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                timeZoneName: "short",
+              })}</p>
+              <p><strong>Consultation Type:</strong> Free Website Strategy Session</p>
+              <p><strong>Appointment ID:</strong> ${appointment.appointmentId}</p>
+              <p><strong>Project Details:</strong></p>
+              <p style="background: white; padding: 10px; border-radius: 5px; border: 1px solid #e0e0e0;">${
+                appointment.message || "No details provided"
+              }</p>
+            </div>
+
+            <div style="background: #e8f4fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+              <h4 style="color: #1976d2; margin-top: 0;">📋 Next Steps</h4>
+              <ol style="margin: 10px 0; padding-left: 20px;">
+                <li>Login to your admin dashboard</li>
+                <li>Review this appointment request</li>
+                <li>Confirm or cancel the appointment</li>
+                <li>The client will receive email confirmation</li>
+              </ol>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+              <a href="http://localhost:3000/admin/appointments" class="action-button">
+                📋 View in Dashboard
+              </a>
+            </div>
+
+            <p style="font-size: 14px; color: #666; margin-top: 20px;">
+              <strong>⚠️ Note:</strong> This is an automated notification. No action required in this email. Please login to the dashboard to manage appointments.
+            </p>
+            
+            <p>Best regards,<br>
+            <strong>Seattle Pixels System</strong></p>
+          </div>
+          <div class="footer">
+            <p><strong>Seattle Pixels Web Design Agency</strong><br>
+            📍 Seattle, WA<br>
+            📧 pixelsSeattle@gmail.com<br>
+            🌐 www.seattlepixels.com</p>
+            <p style="font-size: 12px; color: #999; margin-top: 15px;">
+              This is an automated notification sent to the admin.
+            </p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `📅 NEW APPOINTMENT REQUEST
+
+A new appointment has been requested and needs your review!
+
+Status: ⏰ PENDING REVIEW
+
+Client Details:
+- Name: ${appointment.name}
+- Email: ${appointment.email}
+- Phone: ${appointment.phone}
+- Date & Time: ${new Date(appointment.date).toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
+    })}
+- Consultation Type: Free Website Strategy Session
+- Appointment ID: ${appointment.appointmentId}
+
+Project Details:
+${appointment.message || "No details provided"}
+
+Next Steps:
+1. Login to admin dashboard
+2. Review the appointment
+3. Confirm or cancel
+4. Client receives confirmation
+
+View in Dashboard: http://localhost:3000/admin/appointments
+
+⚠️ Note: This is an automated notification. Please login to the dashboard to manage appointments.
+
+Best regards,
+Seattle Pixels System
+
+---
+Seattle Pixels Web Design Agency
+Seattle, WA
+pixelsSeattle@gmail.com
 www.seattlepixels.com`,
   }),
 };

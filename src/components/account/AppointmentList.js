@@ -8,7 +8,7 @@ const AppointmentList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [filter, setFilter] = useState("all"); // all, pending, confirmed, completed, cancelled
+  const [filter, setFilter] = useState("all");
 
   const fetchAppointments = async () => {
     try {
@@ -29,7 +29,7 @@ const AppointmentList = () => {
     }
   };
 
-  // NEW: Update appointment status instead of deleting
+  // Update appointment status (confirm, complete)
   const updateAppointmentStatus = async (id, newStatus) => {
     try {
       const response = await fetch("/api/appointment", {
@@ -44,7 +44,7 @@ const AppointmentList = () => {
 
       if (response.ok) {
         toast.success(data.message);
-        fetchAppointments(); // Refresh the list
+        fetchAppointments();
       } else {
         toast.error(data.message);
       }
@@ -54,7 +54,41 @@ const AppointmentList = () => {
     }
   };
 
-  // NEW: Get status badge styling
+  // NEW: Delete appointment permanently
+  const deleteAppointment = async (id) => {
+    // Confirm before deleting
+    if (
+      !window.confirm(
+        "Are you sure you want to permanently delete this appointment? This action cannot be undone.",
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/appointment", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("🗑️ Appointment deleted successfully!");
+        fetchAppointments();
+      } else {
+        toast.error(data.message || "Error deleting appointment");
+      }
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+      toast.error("Error deleting appointment");
+    }
+  };
+
+  // Get status badge styling
   const getStatusBadge = (status) => {
     const statusConfig = {
       pending: { class: "badge-warning", label: "⏰ Pending", icon: "⏰" },
@@ -66,13 +100,13 @@ const AppointmentList = () => {
     return statusConfig[status] || statusConfig.pending;
   };
 
-  // UPDATED: Filter appointments based on status
+  // Filter appointments based on status
   const getFilteredAppointments = () => {
     if (filter === "all") return appointments;
     return appointments.filter((appt) => appt.status === filter);
   };
 
-  // NEW: Get status counts for filters
+  // Get status counts for filters
   const getStatusCounts = () => {
     const counts = {
       all: appointments.length,
@@ -118,7 +152,7 @@ const AppointmentList = () => {
 
   return (
     <div className="space-y-6">
-      {/* Filter Controls - UPDATED */}
+      {/* Filter Controls */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex flex-wrap gap-2">
           {[
@@ -151,7 +185,7 @@ const AppointmentList = () => {
         </button>
       </div>
 
-      {/* Appointments Grid - UPDATED */}
+      {/* Appointments Grid */}
       {filteredAppointments.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-6xl mb-4">📅</div>
@@ -222,7 +256,7 @@ const AppointmentList = () => {
                           setSelectedAppointment(
                             selectedAppointment?._id === appointment._id
                               ? null
-                              : appointment
+                              : appointment,
                           )
                         }
                         className="btn btn-sm btn-outline gap-2"
@@ -238,7 +272,7 @@ const AppointmentList = () => {
                           onClick={() =>
                             updateAppointmentStatus(
                               appointment._id,
-                              "confirmed"
+                              "confirmed",
                             )
                           }
                           className="btn btn-sm btn-info gap-2"
@@ -252,7 +286,7 @@ const AppointmentList = () => {
                           onClick={() =>
                             updateAppointmentStatus(
                               appointment._id,
-                              "completed"
+                              "completed",
                             )
                           }
                           className="btn btn-sm btn-success gap-2"
@@ -261,24 +295,20 @@ const AppointmentList = () => {
                         </button>
                       )}
 
+                      {/* REPLACED: Delete button instead of Cancel */}
                       {(appointment.status === "pending" ||
                         appointment.status === "confirmed") && (
                         <button
-                          onClick={() =>
-                            updateAppointmentStatus(
-                              appointment._id,
-                              "cancelled"
-                            )
-                          }
+                          onClick={() => deleteAppointment(appointment._id)}
                           className="btn btn-sm btn-error gap-2"
                         >
-                          ❌ Cancel
+                          🗑️ Delete
                         </button>
                       )}
                     </div>
                   </div>
 
-                  {/* Appointment Details */}
+                  {/* Appointment Details - Same as before */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
@@ -292,7 +322,7 @@ const AppointmentList = () => {
                         <span>
                           {format(
                             new Date(appointment.createdAt),
-                            "PPP 'at' p"
+                            "PPP 'at' p",
                           )}
                         </span>
                       </div>
@@ -312,7 +342,7 @@ const AppointmentList = () => {
                       )}
                   </div>
 
-                  {/* Expanded Details */}
+                  {/* Expanded Details - Same as before */}
                   {selectedAppointment?._id === appointment._id && (
                     <div className="mt-6 pt-6 border-t border-base-300 animate-fadeIn">
                       <h4 className="font-semibold text-base-content mb-3 flex items-center gap-2">
@@ -325,7 +355,6 @@ const AppointmentList = () => {
                         </p>
                       </div>
 
-                      {/* Quick Actions */}
                       <div className="flex flex-wrap gap-2 mt-4">
                         <a
                           href={`mailto:${appointment.email}`}
@@ -352,7 +381,7 @@ const AppointmentList = () => {
         </div>
       )}
 
-      {/* Summary - UPDATED */}
+      {/* Summary */}
       {appointments.length > 0 && (
         <div className="bg-base-200 rounded-2xl p-4 border border-base-300">
           <div className="flex flex-wrap justify-between items-center gap-4 text-sm">

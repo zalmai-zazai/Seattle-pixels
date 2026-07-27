@@ -59,6 +59,18 @@ export default async function handler(req, res) {
 
       await newAppointment.save();
 
+      // Send notification to admin
+      try {
+        await sendEmail(
+          process.env.ADMIN_EMAIL,
+          emailTemplates.adminNotification,
+          newAppointment,
+        );
+        console.log("📧 Admin notification sent to:", process.env.ADMIN_EMAIL);
+      } catch (emailError) {
+        console.error("❌ Admin notification failed:", emailError);
+      }
+
       // NO EMAIL SENT HERE - Wait for admin confirmation
       console.log("📝 Appointment created (pending):", newAppointment.email);
 
@@ -97,7 +109,7 @@ export default async function handler(req, res) {
       const updatedAppointment = await Appointment.findByIdAndUpdate(
         id,
         { status },
-        { new: true }
+        { new: true },
       );
 
       if (!updatedAppointment) {
@@ -113,11 +125,11 @@ export default async function handler(req, res) {
           await sendEmail(
             updatedAppointment.email,
             emailTemplates.confirmation,
-            updatedAppointment
+            updatedAppointment,
           );
           console.log(
             "✅ Confirmation email sent to:",
-            updatedAppointment.email
+            updatedAppointment.email,
           );
         } else if (status === "cancelled") {
           await sendEmail(
@@ -126,11 +138,11 @@ export default async function handler(req, res) {
             {
               ...updatedAppointment.toObject(),
               reason: cancellationReason || "No reason provided",
-            }
+            },
           );
           console.log(
             "✅ Cancellation email sent to:",
-            updatedAppointment.email
+            updatedAppointment.email,
           );
         }
       } catch (emailError) {
@@ -151,7 +163,6 @@ export default async function handler(req, res) {
       });
     }
   } else if (req.method === "DELETE") {
-    // Only allow deletion for pending appointments, otherwise archive
     const { id } = req.body;
 
     if (!id) {
@@ -162,6 +173,7 @@ export default async function handler(req, res) {
     }
 
     try {
+      // Find the appointment first
       const appointment = await Appointment.findById(id);
 
       if (!appointment) {
@@ -171,24 +183,26 @@ export default async function handler(req, res) {
         });
       }
 
-      // Instead of deleting, mark as cancelled
-      appointment.status = "cancelled";
-      await appointment.save();
+      // Save appointment data for email before deleting
+      const appointmentData = appointment.toObject();
+
+      // ACTUALLY DELETE the appointment from database
+      await Appointment.findByIdAndDelete(id);
 
       // Send cancellation email
       try {
-        await sendEmail(appointment.email, emailTemplates.cancellation, {
-          ...appointment.toObject(),
+        await sendEmail(appointmentData.email, emailTemplates.cancellation, {
+          ...appointmentData,
           reason: "Appointment cancelled by admin",
         });
-        console.log("✅ Cancellation email sent to:", appointment.email);
+        console.log("✅ Cancellation email sent to:", appointmentData.email);
       } catch (emailError) {
         console.error("❌ Cancellation email failed:", emailError);
       }
 
       res.json({
         success: true,
-        message: "Appointment cancelled successfully!",
+        message: "Appointment deleted successfully!",
       });
     } catch (error) {
       console.log(error);
