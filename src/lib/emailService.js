@@ -385,7 +385,7 @@ Next Steps:
 3. Confirm or cancel
 4. Client receives confirmation
 
-View in Dashboard: http://localhost:3000/admin/appointments
+View in Dashboard: https://www.Seattlepixels.com/appointments
 
 ⚠️ Note: This is an automated notification. Please login to the dashboard to manage appointments.
 
