@@ -72,6 +72,14 @@ const AppointmentForm = () => {
         } catch (err) {
           console.error("GA4 event error:", err);
         }
+        // Meta Pixel: tell Facebook a lead was submitted
+        try {
+          if (window.fbq) {
+            window.fbq("track", "Lead", { content_name: "appointment_form" });
+          }
+        } catch (err) {
+          console.error("Meta Pixel event error:", err);
+        }
       } else {
         toast.error(
           data.message || "❌ Error booking appointment. Please try again."
